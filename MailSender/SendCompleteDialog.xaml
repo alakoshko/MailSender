@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="SendCompleteDialog" Height="266.301" Width="474.521">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="163,107,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5"/>
-        <TextBlock Name="tbMessage" HorizontalAlignment="Left" Margin="101,74,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="224"/>
+        <Button Content="Закрыть" HorizontalAlignment="Left" Margin="163,107,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5"/>
+        <TextBlock Name="tbMessage" HorizontalAlignment="Left" Margin="101,74,0,0" TextWrapping="Wrap" Text="Сообщение..." VerticalAlignment="Top" Width="224"/>
 
     </Grid>
 </Window>

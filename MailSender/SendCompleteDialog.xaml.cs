@@ -26,10 +26,10 @@ namespace MailSender
             switch (error)
             {
                 case 0:
-                    colorMessageText = "Red";
+                    //colorMessageText = Color;
                     break;
                 default:
-                    colorMessageText = "Black;
+                    //colorMessageText = "Black;
                     break;
             }
             tbMessage.Text = message;

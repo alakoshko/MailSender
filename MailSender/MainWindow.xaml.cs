@@ -22,18 +22,17 @@ namespace MailSender
             };
 
             var MailSender = new EmailSendService(MailFrom, MailTo, tbMailSubject.Text, tbMailBody.Text);
-            if(MailSender.Send(tbUserName.Text, pbPassword.SecurePassword) == 0)
-            {
-                var dlg = new SendCompleteDialog("Почта отправлена успешно");
-                dlg.Owner = this;
-                dlg.ShowDialog();
-            }
+            var res = MailSender.Send(tbUserName.Text, pbPassword.SecurePassword);
+            string message;
+            if (res == 0)
+                message = "Почта отправлена успешно";
             else
-            {
-                var dlg = new SendCompleteDialog("Почта не отправлена");
-                dlg.Owner = this;
-                dlg.ShowDialog();
-            }
+                message = "Почта не отправлена";
+            
+            var dlg = new SendCompleteDialog(message, res);
+            dlg.Owner = this;
+            dlg.ShowDialog();
+        
             //MessageBox.Show("Почта отправлена успешно", "MailSender", MessageBoxButton.OK,
             //    MessageBoxImage.Information);
             
