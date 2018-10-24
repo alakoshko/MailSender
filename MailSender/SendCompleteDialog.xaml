@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MailSender"
         mc:Ignorable="d"
-        Title="SendCompleteDialog" Height="266.301" Width="474.521">
+        Title="SendCompleteDialog" Height="266.301" Width="308.521">
     <Grid>
-        <Button Content="Закрыть" HorizontalAlignment="Left" Margin="163,107,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5"/>
-        <TextBlock Name="tbMessage" HorizontalAlignment="Left" Margin="101,74,0,0" TextWrapping="Wrap" Text="Сообщение..." VerticalAlignment="Top" Width="224"/>
+        <Button Content="Закрыть" HorizontalAlignment="Left" Margin="113,181,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="Button_Click"/>
+        <TextBlock Name="tbMessage" HorizontalAlignment="Left" Margin="23,74,0,0" TextWrapping="Wrap" Text="Сообщение..." VerticalAlignment="Top" Width="253" Height="79">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Path=messageIsError}" Value="True">
+                            <Setter Property="Foreground" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
 
     </Grid>
 </Window>

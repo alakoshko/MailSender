@@ -25,6 +25,8 @@ namespace MailSender
 
         public int Send(string username, SecureString userpass)
         {
+            SendCompleteDialog dlg;
+
             foreach (var vMailTo in EmailTo)
                 try
                 {
@@ -46,10 +48,19 @@ namespace MailSender
                 }
                 catch (Exception error)
                 {
-                    MessageBox.Show(error.Message, GlobalSettings.smtpErrorTittle, MessageBoxButton.OK,
-                        MessageBoxImage.Error);
+                    
+                    dlg = new SendCompleteDialog(error.Message, -1, GlobalSettings.smtpErrorTittle);
+                    //dlg.Owner = this;
+                    dlg.ShowDialog();
+
+                    //MessageBox.Show(error.Message, GlobalSettings.smtpErrorTittle, MessageBoxButton.OK,
+                    //    MessageBoxImage.Error);
                     return -1;
                 }
+
+            dlg = new SendCompleteDialog("Почта отправлена успешно", 0, "Результат отправки почты");
+            dlg.ShowDialog();
+
             return 0;
         }
     }

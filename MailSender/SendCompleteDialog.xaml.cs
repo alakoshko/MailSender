@@ -19,20 +19,28 @@ namespace MailSender
     /// </summary>
     public partial class SendCompleteDialog : Window
     {
-        public SendCompleteDialog(string message, int error)
+        public bool messageIsError = false;
+
+        public SendCompleteDialog(string message, int error, string title = "Сообщение")
         {
             InitializeComponent();
-            Color colorMessageText;
+            
             switch (error)
             {
                 case 0:
-                    //colorMessageText = Color;
+                    messageIsError = true;
                     break;
                 default:
-                    //colorMessageText = "Black;
+                    messageIsError = true;
                     break;
             }
+            this.Title = title;
             tbMessage.Text = message;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
