@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Windows;
-using System.Security;
+using System.Security; 
 
 namespace MailSender
 {
@@ -53,12 +53,10 @@ namespace MailSender
                     //dlg.Owner = this;
                     dlg.ShowDialog();
 
-                    //MessageBox.Show(error.Message, GlobalSettings.smtpErrorTittle, MessageBoxButton.OK,
-                    //    MessageBoxImage.Error);
                     return -1;
                 }
 
-            dlg = new SendCompleteDialog("Почта отправлена успешно", 0, "Результат отправки почты");
+            dlg = new SendCompleteDialog(GlobalSettings.mailSentOk, 0, GlobalSettings.mailSentError);
             dlg.ShowDialog();
 
             return 0;

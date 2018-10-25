@@ -10,11 +10,10 @@
         <Button Content="Закрыть" HorizontalAlignment="Left" Margin="113,181,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.5,0.5" Click="Button_Click"/>
         <TextBlock Name="tbMessage" HorizontalAlignment="Left" Margin="23,74,0,0" TextWrapping="Wrap" Text="Сообщение..." VerticalAlignment="Top" Width="253" Height="79">
             <TextBlock.Style>
-                <Style TargetType="TextBlock">
-
+                <Style>
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding Path=messageIsError}" Value="True">
-                            <Setter Property="Foreground" Value="Red" />
+                        <DataTrigger Binding="{Binding Path=messageIsError}" Value="error">
+                            <Setter Property="TextBox.Background" Value="Red" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>

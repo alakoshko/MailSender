@@ -6,19 +6,44 @@
         xmlns:local="clr-namespace:MailSender"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TextBox Name="tbUserName" HorizontalAlignment="Left" Height="18" Margin="6,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox Name="pbPassword" HorizontalAlignment="Left" Margin="212,31,0,0" VerticalAlignment="Top" Width="160"/>
-        <Button Content="Отправить" HorizontalAlignment="Left" Margin="191,227,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="6,10,0,0" TextWrapping="Wrap" Text="Имя пользователя" VerticalAlignment="Top" Width="120"/>
-        <TextBlock HorizontalAlignment="Left" Margin="212,10,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="160"/>
-        <TextBox Name="tbMailFrom" HorizontalAlignment="Left" Margin="126,71,0,0" TextWrapping="Wrap" Text="a.lakoshko@yandex.ru" VerticalAlignment="Top" Width="140" Height="23"/>
-        <TextBox Name="tbMailTo" HorizontalAlignment="Left" Height="23" Margin="126,99,0,0" TextWrapping="Wrap" Text="a.lakoshko@gmail.com" VerticalAlignment="Top" Width="140"/>
-        <TextBlock HorizontalAlignment="Left" Margin="48,78,0,0" TextWrapping="Wrap" Text="От кого:" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="48,100,0,0" TextWrapping="Wrap" Text="Кому:" VerticalAlignment="Top"/>
-        <TextBox Name="tbMailSubject" HorizontalAlignment="Left" Height="23" Margin="126,127,0,0" TextWrapping="Wrap" Text="Тема ..." VerticalAlignment="Top" Width="140"/>
-        <TextBlock HorizontalAlignment="Left" Margin="48,128,0,0" TextWrapping="Wrap" Text="Тема:" VerticalAlignment="Top"/>
-        <TextBox Name="tbMailBody" HorizontalAlignment="Left" Height="67" Margin="48,155,0,0" TextWrapping="Wrap" Text="Текст...." VerticalAlignment="Top" Width="218"/>
+    <DockPanel>
+        <TabControl>
+            <TabItem Header="Рассыльщик">
+                <Grid>
+                    <TextBox Name="tbUserName" HorizontalAlignment="Left" Height="18" Margin="6,31,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                    <PasswordBox Name="pbPassword" HorizontalAlignment="Left" Margin="212,31,0,0" VerticalAlignment="Top" Width="160"/>
+                    <Button Content="Отправить" HorizontalAlignment="Left" Margin="191,227,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="6,10,0,0" TextWrapping="Wrap" Text="Имя пользователя" VerticalAlignment="Top" Width="120"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="212,10,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="160"/>
+                    <TextBox Name="tbMailFrom" HorizontalAlignment="Left" Margin="126,71,0,0" TextWrapping="Wrap" Text="a.lakoshko@yandex.ru" VerticalAlignment="Top" Width="140" Height="23"/>
+                    <TextBox Name="tbMailTo" HorizontalAlignment="Left" Height="23" Margin="126,99,0,0" TextWrapping="Wrap" Text="a.lakoshko@gmail.com" VerticalAlignment="Top" Width="140"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="48,78,0,0" TextWrapping="Wrap" Text="От кого:" VerticalAlignment="Top"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="48,100,0,0" TextWrapping="Wrap" Text="Кому:" VerticalAlignment="Top"/>
+                    <TextBox Name="tbMailSubject" HorizontalAlignment="Left" Height="23" Margin="126,127,0,0" TextWrapping="Wrap" Text="Тема ..." VerticalAlignment="Top" Width="140"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="48,128,0,0" TextWrapping="Wrap" Text="Тема:" VerticalAlignment="Top"/>
+                    <TextBox Name="tbMailBody" HorizontalAlignment="Left" Height="67" Margin="48,155,0,0" TextWrapping="Wrap" Text="Текст...." VerticalAlignment="Top" Width="218"/>
 
-    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Планировщик" Name="TimePlannerTab">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="Дата"/>
+                        <Calendar SelectionMode="MultipleRange"/>
+                        <TextBlock Text="Время"/>
+                        <TextBlock />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Редактор писем">
+                <Grid>
+                    <RichTextBox/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>

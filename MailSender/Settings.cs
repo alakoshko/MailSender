@@ -12,6 +12,9 @@ namespace MailSender
         public static string smtpPort = "25";
 
         public static string smtpErrorTittle = "Error!";
+
+        public static string mailSentOk = "Почта отправлена успешно";
+        public static string mailSentError = "Результат отправки почты";
     }
     
 }

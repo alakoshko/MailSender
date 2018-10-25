@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DebugTriggerTextBlock.cs" />
     <Compile Include="EmailSendService.cs" />
     <Compile Include="SendCompleteDialog.xaml.cs">
       <DependentUpon>SendCompleteDialog.xaml</DependentUpon>

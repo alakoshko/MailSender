@@ -19,7 +19,7 @@ namespace MailSender
     /// </summary>
     public partial class SendCompleteDialog : Window
     {
-        public bool messageIsError = false;
+        public string messageIsError = "";
 
         public SendCompleteDialog(string message, int error, string title = "Сообщение")
         {
@@ -28,10 +28,10 @@ namespace MailSender
             switch (error)
             {
                 case 0:
-                    messageIsError = true;
+                    messageIsError = "error";
                     break;
                 default:
-                    messageIsError = true;
+                    messageIsError = "error";
                     break;
             }
             this.Title = title;
