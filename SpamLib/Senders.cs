@@ -12,9 +12,9 @@ namespace SpamLib
         public static readonly ObservableCollection<Sender> Senders =
             new ObservableCollection<Sender>(
                 new[] {
-                    new Sender{ Name="Ivanov", Email="i@m.ru"},
-                    new Sender{ Name="Petrov", Email="p@m.ru"},
-                    new Sender{ Name="Васечкин", Email="v@m.ru"},
+                    new Sender{ Name="Ivanov", Email="p@yandex.ru"},
+                    new Sender{ Name="Petrov", Email="a@yandex.ru"},
+                    new Sender{ Name="Васечкин", Email="s@yandex.ru"},
                     });
 
     }
