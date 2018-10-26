@@ -9,12 +9,14 @@ namespace MailSender
     public static class GlobalSettings
     {
         public static string smtpHost = "smtp.yandex.ru";
-        public static string smtpPort = "25";
+        public static int smtpPort = 25;
 
         public static string smtpErrorTittle = "Error!";
 
         public static string mailSentOk = "Почта отправлена успешно";
         public static string mailSentError = "Результат отправки почты";
+        public static string mailBodyEmpty = "Письмо не заполнено (Пустое тело сообщения)";
+        public static string mailTitleError = "Ошибка параметров";
     }
     
 }

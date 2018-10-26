@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace SpamLib
 {
-    public class Senders
+    public class MailSenders
     {
-        public static readonly ObservableCollection<Sender> _Senders =
+        public static readonly ObservableCollection<Sender> Senders =
             new ObservableCollection<Sender>(
-                new[] { new Sender{ Name="Ivanov", Email="i@m.ru", Password=PasswordEncoder.Encode("p1")},
-                    new Sender{ Name="Petrov", Email="p@m.ru", Password=PasswordEncoder.Encode("p2")},
-                    new Sender{ Name="Васечкин", Email="v@m.ru", Password=PasswordEncoder.Encode("p3")},
+                new[] {
+                    new Sender{ Name="Ivanov", Email="i@m.ru"},
+                    new Sender{ Name="Petrov", Email="p@m.ru"},
+                    new Sender{ Name="Васечкин", Email="v@m.ru"},
                     });
 
     }
