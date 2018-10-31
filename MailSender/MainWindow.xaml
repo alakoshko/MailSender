@@ -74,7 +74,8 @@
                             </StackPanel>
                         </ToolBar>
                         <ToolBar Band="1" BandIndex="0">
-                            <TextBlock Text="Серверы" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                            <empV:SmtpServersView />
+                            <!--<TextBlock Text="Серверы" VerticalAlignment="Center" Margin="0,0,3,0"/>
                             <ComboBox x:Name="cbSmtpServers" Width="150" SelectedIndex="0" ItemsSource="{x:Static ms:SmtpServers.Servers}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="spam:SmtpServer">
@@ -101,7 +102,7 @@
                             </Button>
                             <Button ToolTip="Редактировать список">
                                 <fa:ImageAwesome Height="16" Icon="Edit" Foreground="YellowGreen"/>
-                            </Button>
+                            </Button>-->
                         </ToolBar>
                         <ToolBar Band="0" BandIndex="1">
                             <Button Click="GoToPlannerButton_OnClick">

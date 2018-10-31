@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="MailSender.View.SmtpServersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
+             xmlns:ms="clr-namespace:MailServiceLib;assembly=MailService"
+             xmlns:local="clr-namespace:MailSender.View"
+             mc:Ignorable="d" d:DesignWidth="690" Height="23">
+
+    <DockPanel VerticalAlignment="Center">
+
+        <TextBlock Text="Серверы" VerticalAlignment="Center" Margin="5,0,3,0"/>
+        <ComboBox x:Name="cbSmtpServers" Width="150" SelectedIndex="0" ItemsSource="{x:Static ms:SmtpServers.Servers}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="ms:SmtpServer">
+                    <StackPanel>
+                        <TextBlock><InlineUIContainer>
+                                <TextBlock Text="{Binding ServerName}"/>
+                            </InlineUIContainer><Run Text=":"/><InlineUIContainer>
+                                <TextBlock Text="{Binding ServerPort}"/>
+                            </InlineUIContainer></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Логин: " Margin="5,0,0,0" VerticalAlignment="Center"/>
+        <TextBox x:Name="tbSmtpServerLogin" Width="150" />
+        <TextBlock Text="Пароль: " Margin="5,0,0,0" VerticalAlignment="Center"/>
+        <PasswordBox x:Name="pbSmtpServerPass" Width="150" />
+        <DockPanel  Width="84">
+            <Button DockPanel.Dock="Left" ToolTip="Добавить сервер" Margin="5,0,0,0" Width="23">
+            <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="LightSeaGreen"/>
+            </Button>
+            <Button DockPanel.Dock="Left" ToolTip="Удалить сервер" Margin="5,0,0,0" Width="23">
+                <fa:ImageAwesome Height="16" Icon="Remove" Foreground="OrangeRed"/>
+            </Button>
+            <Button DockPanel.Dock="Left" ToolTip="Редактировать список" Margin="5,0,0,0" Width="23">
+                <fa:ImageAwesome Height="16" Icon="Edit" Foreground="YellowGreen"/>
+            </Button>
+        </DockPanel>
+    </DockPanel>
+</UserControl>
