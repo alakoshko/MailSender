@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSender", "MailSender\MailSender.csproj", "{D4F32AB6-D585-4C62-8B33-316827E44BA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailSenderGUI", "MailSender\MailSenderGUI.csproj", "{D4F32AB6-D585-4C62-8B33-316827E44BA8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpamLib", "SpamLib\SpamLib.csproj", "{9C20B15D-DEC9-4211-B157-0F7BE60E82D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.Themes", "WPF.Themes\WPF.Themes.csproj", "{CD3CD636-D63E-4BD5-9FE9-2B63DA6F0616}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailServiceLib", "MailService\MailServiceLib.csproj", "{95AFEE3E-5F91-4F34-8A95-6BED64D98EB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{CD3CD636-D63E-4BD5-9FE9-2B63DA6F0616}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD3CD636-D63E-4BD5-9FE9-2B63DA6F0616}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD3CD636-D63E-4BD5-9FE9-2B63DA6F0616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95AFEE3E-5F91-4F34-8A95-6BED64D98EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95AFEE3E-5F91-4F34-8A95-6BED64D98EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95AFEE3E-5F91-4F34-8A95-6BED64D98EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95AFEE3E-5F91-4F34-8A95-6BED64D98EB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

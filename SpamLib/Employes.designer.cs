@@ -99,9 +99,11 @@ namespace SpamLib
 		private System.Nullable<System.Guid> _PositionID;
 		
 		private System.Nullable<double> _Salary;
-		
-    #region Определения метода расширяемости
-    partial void OnLoaded();
+
+        private string _Comment;
+
+        #region Определения метода расширяемости
+        partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnIDChanging(System.Guid value);
@@ -124,14 +126,16 @@ namespace SpamLib
     partial void OnPositionIDChanged();
     partial void OnSalaryChanging(System.Nullable<double> value);
     partial void OnSalaryChanged();
-    #endregion
-		
-		public EmployesDB()
+    partial void OnCommentChanging(System.Nullable<double> value);
+    partial void OnCommentChanged();
+        #endregion
+
+        public EmployesDB()
 		{
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="UniqueIdentifier NOT NULL", IsPrimaryKey=true, IsDbGenerated = true, AutoSync = AutoSync.OnInsert)]
 		public System.Guid ID
 		{
 			get
@@ -330,8 +334,28 @@ namespace SpamLib
 				}
 			}
 		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_Comment", DbType = "NVarChar(MAX) NOT NULL", CanBeNull = false)]
+        public string Comment
+        {
+            get
+            {
+                return this._Comment;
+            }
+            set
+            {
+                if ((this._Comment != value))
+                {
+                    this.OnLastNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._Comment = value;
+                    this.SendPropertyChanged("Comment");
+                    this.OnLastNameChanged();
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
 		

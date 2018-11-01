@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using SpamLib;
 using WPF.Themes;
 using System.Windows.Documents;
+using MailServiceLib;
+
 
 namespace MailSender
 {
@@ -22,15 +24,15 @@ namespace MailSender
         {
             var MailFrom = new MailAddress((cbMailFrom.SelectedItem as Sender).Email, (cbMailFrom.SelectedItem as Sender).Name);
 
-            if (dgMailTo.SelectedItems.Count == 0)
-            {
-                var sendCompleteDlg = new SendCompleteDialog(GlobalSettings.mailNullMailTo, -1);
-                sendCompleteDlg.ShowDialog();
-                return;
-            }
+            //if ( dgMailTo.SelectedItems.Count == 0)
+            //{
+            //    var sendCompleteDlg = new SendCompleteDialog(GlobalSettings.mailNullMailTo, -1);
+            //    sendCompleteDlg.ShowDialog();
+            //    return;
+            //}
             var MailTo = new MailAddressCollection();
-            foreach (var v in dgMailTo.SelectedItems)
-                MailTo.Add(new MailAddress((v as EmployesDB).Email, (v as EmployesDB).LastName + ' ' + (v as EmployesDB).Name));
+            //foreach (var v in dgMailTo.SelectedItems)
+            //    MailTo.Add(new MailAddress((v as EmployesDB).Email, (v as EmployesDB).LastName + ' ' + (v as EmployesDB).Name));
 
             (cbSmtpServers.SelectedItem as SmtpServer).Login = tbSmtpServerLogin.Text;
             (cbSmtpServers.SelectedItem as SmtpServer).Password = pbSmtpServerPass.SecurePassword;
