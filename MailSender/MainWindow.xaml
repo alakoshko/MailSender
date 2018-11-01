@@ -8,6 +8,7 @@
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
     xmlns:fa="http://schemas.fontawesome.io/icons/"
     xmlns:empV ="clr-namespace:MailSender.View"
+    xmlns:is="clr-namespace:MailSender.Infrastructure"
     x:Class="MailSender.MainWindow"
     xmlns:themes="clr-namespace:WPF.Themes;assembly=WPF.Themes"
     DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
@@ -39,9 +40,9 @@
                     </Grid.RowDefinitions>
                     <ToolBarTray Grid.Row="0">
                         <ToolBar>
-                            <TextBlock Text="Отправители" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                            <!--DisplayMemberPath="Name"
-                                      SelectedValuePath="Email"-->
+                            <is:ItemsCollectionControl x:Name="cbMailFrom" VerticalAlignment="Center" HorizontalAlignment="Left" PanelName="Отправитель:" 
+                                ItemSource="{x:Static spam:MailSenders.Senders}"/>
+                            <!--<TextBlock Text="Отправители" VerticalAlignment="Center" Margin="0,0,3,0"/>
                             <ComboBox Name="cbMailFrom" Width="150" SelectedIndex="1" ItemsSource="{x:Static spam:MailSenders.Senders}">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate DataType="spam:Sender">
@@ -65,16 +66,26 @@
                             </Button>
                             <Button ToolTip="Редактировать">
                                 <fa:ImageAwesome Height="16" Icon="Edit" Foreground="YellowGreen"/>
-                            </Button>
+                            </Button>-->
                         </ToolBar>
                         <ToolBar Band="0" BandIndex="1">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <TextBlock Text="Theme: " Margin="5,0,0,0"   />
+                                <TextBlock Text="Theme: " Margin="5,0,0,0" />
                                 <ComboBox x:Name="themes" Width="150" Height="20" SelectionChanged="themes_SelectionChanged" SelectedIndex="17" />
                             </StackPanel>
                         </ToolBar>
                         <ToolBar Band="1" BandIndex="0">
-                            <empV:SmtpServersView />
+                            <is:ItemsCollectionControl x:Name="cbSmtpServers" VerticalAlignment="Center" HorizontalAlignment="Left" PanelName="SMTP сервера:" 
+                                ItemSource="{x:Static ms:SmtpServers.Servers}"/>
+                            <TextBlock DockPanel.Dock="Left" Text="Логин: " Margin="5,0,0,0" VerticalAlignment="Center"/>
+                            <TextBox DockPanel.Dock="Left" x:Name="tbSmtpServerLogin" Width="100" />
+                            <TextBlock DockPanel.Dock="Left" Text="Пароль: " VerticalAlignment="Center"/>
+                            <PasswordBox DockPanel.Dock="Left" x:Name="pbSmtpServerPass" Width="100" />
+
+
+                            <!--<empV:SmtpServersView />-->
+                            
+                            
                             <!--<TextBlock Text="Серверы" VerticalAlignment="Center" Margin="0,0,3,0"/>
                             <ComboBox x:Name="cbSmtpServers" Width="150" SelectedIndex="0" ItemsSource="{x:Static ms:SmtpServers.Servers}">
                                 <ComboBox.ItemTemplate>
@@ -112,7 +123,7 @@
                                 </StackPanel>
                             </Button>
                         </ToolBar>
-                        <ToolBar Band="2">
+                        <!--<ToolBar Band="2">
                             <TextBlock VerticalAlignment="Center" Text="Список адресов"/>
                             <ComboBox x:Name="cbRecivers" Width="150" SelectedIndex="0" >
                                 <ComboBox.ItemTemplate>
@@ -135,7 +146,7 @@
                             <Button ToolTip="Редактировать список">
                                 <fa:ImageAwesome Height="16" Icon="Edit" Foreground="YellowGreen"/>
                             </Button>
-                        </ToolBar>
+                        </ToolBar>-->
                     </ToolBarTray>
                     
                     <Grid Grid.Row="1">

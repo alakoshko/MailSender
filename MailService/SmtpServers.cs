@@ -28,6 +28,8 @@ namespace MailServiceLib
         public SecureString Password;
         public string Login;
 
+        public override string ToString() => $"{ServerName}:{ServerPort}";
+
     }
 
 

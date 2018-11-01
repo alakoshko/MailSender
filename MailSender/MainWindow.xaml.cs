@@ -22,48 +22,49 @@ namespace MailSender
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //var MailFrom = new MailAddress((cbMailFrom.SelectedItem as Sender).Email, (cbMailFrom.SelectedItem as Sender).Name);
+            
+            var MailFrom = new MailAddress((cbMailFrom.SelectedItem as Sender).Email, (cbMailFrom.SelectedItem as Sender).Name);
 
-            ////if ( dgMailTo.SelectedItems.Count == 0)
-            ////{
-            ////    var sendCompleteDlg = new SendCompleteDialog(GlobalSettings.mailNullMailTo, -1);
-            ////    sendCompleteDlg.ShowDialog();
-            ////    return;
-            ////}
-            //var MailTo = new MailAddressCollection();
-            ////foreach (var v in dgMailTo.SelectedItems)
-            ////    MailTo.Add(new MailAddress((v as EmployesDB).Email, (v as EmployesDB).LastName + ' ' + (v as EmployesDB).Name));
-            
-            //(cbSmtpServers.SelectedItem as SmtpServer).Login = tbSmtpServerLogin.Text;
-            //(cbSmtpServers.SelectedItem as SmtpServer).Password = pbSmtpServerPass.SecurePassword;
-            
-            //if (string.IsNullOrEmpty((cbSmtpServers.SelectedItem as SmtpServer).Login))
+            //if ( dgMailTo.SelectedItems.Count == 0)
             //{
-            //    var sendCompleteDlg = new SendCompleteDialog(GlobalSettings.smtpServerNullLogin, -1);
+            //    var sendCompleteDlg = new SendCompleteDialog(GlobalSettings.mailNullMailTo, -1);
             //    sendCompleteDlg.ShowDialog();
             //    return;
             //}
-            //if (string.IsNullOrEmpty((cbSmtpServers.SelectedItem as SmtpServer).Password.ToString()))
-            //{
-            //    var sendCompleteDlg = new SendCompleteDialog(GlobalSettings.smtpServerNullPassword, -1);
-            //    sendCompleteDlg.ShowDialog();
-            //    return;
-            //}
-            ////EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPassword);
-            ////emailSender.SendMails((IQueryable<Email>)dgEmails.ItemsSource);
+            var MailTo = new MailAddressCollection();
+            //foreach (var v in dgMailTo.SelectedItems)
+            //    MailTo.Add(new MailAddress((v as EmployesDB).Email, (v as EmployesDB).LastName + ' ' + (v as EmployesDB).Name));
 
-            
-            //var MailSender = new MailService(cbSmtpServers.SelectedItem as SmtpServer);
-            //try
-            //{
-            //    MailSender.SendMails(MailFrom, MailTo, tbMailSubject.Text, new TextRange(rtbMailBody.Document.ContentStart, rtbMailBody.Document.ContentEnd).Text);
-            //}
-            //catch (Exception error)
-            //{
-            //    var sendCompleteDlg = new SendCompleteDialog(error.ToString(), -1);
-            //    sendCompleteDlg.ShowDialog();
-            //}
-            
+            (cbSmtpServers.SelectedItem as SmtpServer).Login = tbSmtpServerLogin.Text;
+            (cbSmtpServers.SelectedItem as SmtpServer).Password = pbSmtpServerPass.SecurePassword;
+
+            if (string.IsNullOrEmpty((cbSmtpServers.SelectedItem as SmtpServer).Login))
+            {
+                var sendCompleteDlg = new SendCompleteDialog(GlobalSettings.smtpServerNullLogin, -1);
+                sendCompleteDlg.ShowDialog();
+                return;
+            }
+            if (string.IsNullOrEmpty((cbSmtpServers.SelectedItem as SmtpServer).Password.ToString()))
+            {
+                var sendCompleteDlg = new SendCompleteDialog(GlobalSettings.smtpServerNullPassword, -1);
+                sendCompleteDlg.ShowDialog();
+                return;
+            }
+            //EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPassword);
+            //emailSender.SendMails((IQueryable<Email>)dgEmails.ItemsSource);
+
+
+            var MailSender = new MailService(cbSmtpServers.SelectedItem as SmtpServer);
+            try
+            {
+                MailSender.SendMails(MailFrom, MailTo, tbMailSubject.Text, new TextRange(rtbMailBody.Document.ContentStart, rtbMailBody.Document.ContentEnd).Text);
+            }
+            catch (Exception error)
+            {
+                var sendCompleteDlg = new SendCompleteDialog(error.ToString(), -1);
+                sendCompleteDlg.ShowDialog();
+            }
+
         }
 
         private void OnExitClick(object sender, RoutedEventArgs e)

@@ -94,6 +94,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DebugTriggerTextBlock.cs" />
+    <Compile Include="Infrastructure\ItemsCollectionControl.cs" />
     <Compile Include="View\SmtpServersView.xaml.cs">
       <DependentUpon>SmtpServersView.xaml</DependentUpon>
     </Compile>
@@ -115,6 +116,10 @@
     <Page Include="Infrastructure\EmployesDBDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SmtpServersView.xaml">
       <SubType>Designer</SubType>
