@@ -14,7 +14,7 @@
                             <Style TargetType="{x:Type fa:ImageAwesome}">
                                 <!--<Setter Property="Height" Value="23"/>
                                 <Setter Property="Width" Value="23"/>-->
-                                <Setter Property="Margin" Value="5,0,0,0"/>
+                                <!--<Setter Property="Margin" Value="5,0,0,0"/>-->
                                 <Setter Property="HorizontalAlignment" Value="Center"/>
                                 <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
@@ -29,7 +29,8 @@
                         <TextBlock DockPanel.Dock="Left" Text="{TemplateBinding PanelName}" Width="100" VerticalAlignment="Center"/>
                         <ComboBox x:Name="CollectionView" SelectedIndex="0" Width="200" 
                                   ItemsSource="{TemplateBinding ItemSource}"
-                                  SelectedItem="{TemplateBinding SelectedItem}">
+                                  SelectedItem="{TemplateBinding SelectedItem}"
+                                  IsEditable="True">
                             
                         </ComboBox>
                         
