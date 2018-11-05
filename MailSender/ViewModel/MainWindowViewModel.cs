@@ -45,22 +45,25 @@ namespace MailSender.ViewModel
         public bool UpdateCurrentEmployesDBCanExecute(EmployesDB employesDB) => employesDB != null;// || _CurrentEmployesDB != null;
         private void OnUpdateCurrentEmployesDBExecuted(EmployesDB employesDB)
         {
-            if (_DataAccessService.CreateNewEmployesDB(employesDB) != null )
-                EmployesDBs.Add(employesDB);
+            //if (_DataAccessService.CreateNewEmployesDB(employesDB) != null )
+            //    EmployesDBs.Add(employesDB);
+            _DataAccessService.UpdateEmployesDB(employesDB);
         }
 
         public ICommand CreateNewEmployesDB { get; }
         private void OnCreateNewEmployesDBExecuted(EmployesDB employesDB)
         {
             CurrentEmployesDB = new EmployesDB();
+            EmployesDBs.Add(CurrentEmployesDB);
         }
+
 
 
         //public ICommand ClickSendMail { get; }
         //public bool ClickSendMailCanExecute(EmployesDB employesDB) => employesDB != null;// || _CurrentEmployesDB != null;
         //private void OnClickSendMailExecuted(EmployesDB employesDB)
         //{
-            
+
         //}
         #endregion
 

@@ -20,6 +20,15 @@ namespace MailSender
             InitializeComponent();
         }
 
+        //void GetEmails()
+        //{
+        //    Emails.Clear();
+        //    foreach (var item in _serviceProxy.GetEmails())
+        //    {
+        //        Emails.Add(item);
+        //    }
+        //}
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             
