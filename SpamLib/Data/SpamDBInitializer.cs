@@ -1,0 +1,98 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Runtime.Remoting.Contexts;
+using System.Data.Entity.Migrations;
+
+namespace SpamLib.Data
+{
+    public partial class SpamDB
+    {
+        static SpamDB() => Database.SetInitializer(new SpamDBInitializer());
+    }
+
+
+    public class SpamDBInitializer : DropCreateDatabaseAlways<SpamDB>
+    {
+        protected override void Seed(SpamDB context) {
+
+            base.Seed(context);
+
+            if (!context.Emails.Any())
+            {
+                context.Emails.AddOrUpdate(
+                    new Email { Title="Письмо 1", Body="Текст 1" },
+                    new Email { Title = "Письмо 2", Body = "Текст 2" },
+                    new Email { Title = "Письмо 3", Body = "Текст 3" },
+                    new Email { Title = "Письмо 4", Body = "Текст 4" }
+                    );
+                context.SaveChanges();
+            }
+
+            if (!context.Recepients.Any())
+            {
+                context.Recepients.AddOrUpdate(
+                    new Recepient { Name = "Иванов", Email = "ivanov@mail.ru" },
+                    new Recepient { Name = "Петров", Email = "petrov@mail.ru" },
+                    new Recepient { Name = "Васечкин", Email = "vasechkin@mail.ru" },
+                    new Recepient { Name = "Сидоров", Email = "sidorov@mail.ru" }
+                    );
+                context.SaveChanges();
+            }
+
+            if (!context.Senders.Any())
+            {
+                context.Senders.AddOrUpdate(
+                    new Sender { Name = "Васечкин", Email = "vasechkin@mail.ru", Login = "vasechkin", Password = "pass1" },
+                    new Sender { Name = "Иванов", Email = "ivanov@mail.ru", Login = "ivanov", Password = "pass2" },
+                    new Sender { Name = "Петров", Email = "petrov@mail.ru", Login = "petrov", Password = "pass3" },
+                    new Sender { Name = "Сидоров", Email = "sidorov@mail.ru", Login = "sidorov", Password = "pass4" }
+                    );
+                context.SaveChanges();
+            }
+
+            if (!context.Senders.Any())
+            {
+                context.Senders.AddOrUpdate(
+                    new Sender { Name = "Отправитель1", Email = "sender1@mail.ru", Login = "sender1", Password = "pass1" },
+                    new Sender { Name = "Отправитель2", Email = "sender2@mail.ru", Login = "sender2", Password = "pass2" },
+                    new Sender { Name = "Отправитель3", Email = "sender3@mail.ru", Login = "sender3", Password = "pass3" },
+                    new Sender { Name = "Отправитель4", Email = "sender4@mail.ru", Login = "sender4", Password = "pass4" }
+                    );
+                context.SaveChanges();
+            }
+
+            if (!context.Servers.Any())
+            {
+                context.Servers.AddOrUpdate(
+                    new Server { Name = "Yandex", Address="smtp.yandex.ru", Port=25, UseSSL=true },
+                    new Server { Name = "Mail", Address = "smtp.mail.ru", Port = 25, UseSSL = true },
+                    new Server { Name = "Gmail", Address = "smtp.gmail.ru", Port = 25, UseSSL = true }
+                    );
+                context.SaveChanges();
+            }
+
+            if (!context.MailingLists.Any())
+            {
+                context.MailingLists.AddOrUpdate(
+                    new MailingList { Name = "List 1", Recepients = context.Recepients.ToArray() }
+                    );
+                context.SaveChanges();
+            }
+
+            if (!context.ScheduledTasks.Any())
+            {
+                context.ScheduledTasks.AddOrUpdate(
+                    new ScheduledTask { Name = "Первая задача",
+                        Emails =context.Emails.OrderBy(e => e.Id).Take(3).ToArray(),
+                        Time = DateTime.Now.Subtract(TimeSpan.FromMinutes(30)),
+                    }
+                    );
+                context.SaveChanges();
+            }
+        }
+    }
+}

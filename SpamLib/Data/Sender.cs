@@ -17,7 +17,7 @@ namespace SpamLib.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sender()
         {
-            this.Emails = new HashSet<Email>();
+            this.ScheduledTasks = new HashSet<ScheduledTask>();
         }
     
         public System.Guid Id { get; set; }
@@ -28,6 +28,6 @@ namespace SpamLib.Data
         public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Email> Emails { get; set; }
+        public virtual ICollection<ScheduledTask> ScheduledTasks { get; set; }
     }
 }

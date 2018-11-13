@@ -13,11 +13,12 @@ namespace SpamLib.Data
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SpamDBContainer : DbContext
+    public partial class SpamDB : DbContext
     {
-        public SpamDBContainer()
-            : base("name=SpamDBContainer")
+        public SpamDB()
+            : base("name=SpamDB")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

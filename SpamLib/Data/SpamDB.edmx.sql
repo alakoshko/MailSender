@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/13/2018 23:53:39
+-- Date Created: 11/14/2018 01:55:44
 -- Generated from EDMX file: D:\Документы\GitHub\MailSender\SpamLib\Data\SpamDB.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,56 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_MailingListRecepient_MailingList]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MailingListRecepient] DROP CONSTRAINT [FK_MailingListRecepient_MailingList];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MailingListRecepient_Recepient]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[MailingListRecepient] DROP CONSTRAINT [FK_MailingListRecepient_Recepient];
+GO
+IF OBJECT_ID(N'[dbo].[FK_MailingListScheduledTask]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ScheduledTasks] DROP CONSTRAINT [FK_MailingListScheduledTask];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ScheduledTaskEmail_ScheduledTask]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ScheduledTaskEmail] DROP CONSTRAINT [FK_ScheduledTaskEmail_ScheduledTask];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ScheduledTaskEmail_Email]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ScheduledTaskEmail] DROP CONSTRAINT [FK_ScheduledTaskEmail_Email];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmailSender]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Emails] DROP CONSTRAINT [FK_EmailSender];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmailServer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Emails] DROP CONSTRAINT [FK_EmailServer];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[MailingLists]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MailingLists];
+GO
+IF OBJECT_ID(N'[dbo].[Recepients]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Recepients];
+GO
+IF OBJECT_ID(N'[dbo].[ScheduledTasks]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ScheduledTasks];
+GO
+IF OBJECT_ID(N'[dbo].[Emails]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Emails];
+GO
+IF OBJECT_ID(N'[dbo].[Senders]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Senders];
+GO
+IF OBJECT_ID(N'[dbo].[Servers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Servers];
+GO
+IF OBJECT_ID(N'[dbo].[MailingListRecepient]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MailingListRecepient];
+GO
+IF OBJECT_ID(N'[dbo].[ScheduledTaskEmail]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ScheduledTaskEmail];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -82,7 +127,7 @@ CREATE TABLE [dbo].[Servers] (
     [Name] nvarchar(max)  NOT NULL,
     [Description] nvarchar(max)  NULL,
     [Address] nvarchar(max)  NOT NULL,
-    [Port] nvarchar(max)  NOT NULL,
+    [Port] smallint  NOT NULL,
     [UseSSL] bit  NOT NULL
 );
 GO

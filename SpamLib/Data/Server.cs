@@ -17,17 +17,17 @@ namespace SpamLib.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Server()
         {
-            this.Emails = new HashSet<Email>();
+            this.ScheduledTasks = new HashSet<ScheduledTask>();
         }
     
         public System.Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Address { get; set; }
-        public string Port { get; set; }
+        public short Port { get; set; }
         public bool UseSSL { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Email> Emails { get; set; }
+        public virtual ICollection<ScheduledTask> ScheduledTasks { get; set; }
     }
 }

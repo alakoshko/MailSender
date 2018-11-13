@@ -27,7 +27,5 @@ namespace SpamLib.Data
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScheduledTask> ScheduledTasks { get; set; }
-        public virtual Sender Senders { get; set; }
-        public virtual Server Servers { get; set; }
     }
 }

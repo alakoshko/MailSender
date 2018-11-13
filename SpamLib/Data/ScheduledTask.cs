@@ -28,5 +28,7 @@ namespace SpamLib.Data
         public virtual MailingList MailingLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Email> Emails { get; set; }
+        public virtual Server Servers { get; set; }
+        public virtual Sender Senders { get; set; }
     }
 }
