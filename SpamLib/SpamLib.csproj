@@ -44,6 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase.cs" />
+    <Compile Include="Data\SpamDB.Designer.cs" />
+    <Compile Include="Data\SpamDB1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpamDB.edmx</DependentUpon>
+    </Compile>
     <Compile Include="IDataAccessService.cs" />
     <Compile Include="Employes.designer.cs">
       <AutoGen>True</AutoGen>
@@ -63,6 +69,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EntityDeploy Include="Data\SpamDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SpamDB1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\SpamDB.edmx.diagram">
+      <DependentUpon>SpamDB.edmx</DependentUpon>
+    </None>
     <None Include="Employes.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>Employes.designer.cs</LastGenOutput>
