@@ -44,6 +44,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase.cs" />
+    <Compile Include="Data\Email.cs">
+      <DependentUpon>SpamDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\MailingList.cs">
+      <DependentUpon>SpamDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Recepient.cs">
+      <DependentUpon>SpamDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ScheduledTask.cs">
+      <DependentUpon>SpamDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Sender.cs">
+      <DependentUpon>SpamDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Server.cs">
+      <DependentUpon>SpamDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SpamDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpamDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SpamDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SpamDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\SpamDB.Designer.cs" />
     <Compile Include="Data\SpamDB1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -81,6 +109,7 @@
       <LastGenOutput>Employes.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -88,11 +117,25 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Employes.dbml.layout">
       <DependentUpon>Employes.dbml</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\SpamDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SpamDB.Context.cs</LastGenOutput>
+      <DependentUpon>SpamDB.edmx</DependentUpon>
+    </Content>
+    <Content Include="Data\SpamDB.edmx.sql" />
+    <Content Include="Data\SpamDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SpamDB.cs</LastGenOutput>
+      <DependentUpon>SpamDB.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

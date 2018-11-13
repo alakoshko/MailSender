@@ -4,11 +4,210 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="SpamDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="SpamDBTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="SpamDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SpamDBStoreContainer">
+    <EntitySet Name="MailingLists" EntityType="SpamDB.Store.MailingLists" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Recepients" EntityType="SpamDB.Store.Recepients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ScheduledTasks" EntityType="SpamDB.Store.ScheduledTasks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Emails" EntityType="SpamDB.Store.Emails" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Senders" EntityType="SpamDB.Store.Senders" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Servers" EntityType="SpamDB.Store.Servers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MailingListRecepient" EntityType="SpamDB.Store.MailingListRecepient" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ScheduledTaskEmail" EntityType="SpamDB.Store.ScheduledTaskEmail" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_MailingListRecepient_MailingList" Association="SpamDB.Store.FK_MailingListRecepient_MailingList">
+      <End Role="MailingList" EntitySet="MailingLists" />
+      <End Role="MailingListRecepient" EntitySet="MailingListRecepient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailingListRecepient_Recepient" Association="SpamDB.Store.FK_MailingListRecepient_Recepient">
+      <End Role="Recepient" EntitySet="Recepients" />
+      <End Role="MailingListRecepient" EntitySet="MailingListRecepient" />
+    </AssociationSet>
+    <AssociationSet Name="MailingListScheduledTask" Association="SpamDB.Store.MailingListScheduledTask">
+      <End Role="MailingList" EntitySet="MailingLists" />
+      <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduledTaskEmail_ScheduledTask" Association="SpamDB.Store.FK_ScheduledTaskEmail_ScheduledTask">
+      <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
+      <End Role="ScheduledTaskEmail" EntitySet="ScheduledTaskEmail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScheduledTaskEmail_Email" Association="SpamDB.Store.FK_ScheduledTaskEmail_Email">
+      <End Role="Email" EntitySet="Emails" />
+      <End Role="ScheduledTaskEmail" EntitySet="ScheduledTaskEmail" />
+    </AssociationSet>
+    <AssociationSet Name="EmailSender" Association="SpamDB.Store.EmailSender">
+      <End Role="Email" EntitySet="Emails" />
+      <End Role="Sender" EntitySet="Senders" />
+    </AssociationSet>
+    <AssociationSet Name="EmailServer" Association="SpamDB.Store.EmailServer">
+      <End Role="Email" EntitySet="Emails" />
+      <End Role="Server" EntitySet="Servers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="MailingLists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Decription" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Recepients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ScheduledTasks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="MailingLists_Id" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Emails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Senders_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Servers_Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Senders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Servers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Port" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UseSSL" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MailingListRecepient">
+    <Key>
+      <PropertyRef Name="MailingLists_Id" />
+      <PropertyRef Name="Recepients_Id" />
+    </Key>
+    <Property Name="MailingLists_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Recepients_Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ScheduledTaskEmail">
+    <Key>
+      <PropertyRef Name="ScheduledTasks_Id" />
+      <PropertyRef Name="Emails_Id" />
+    </Key>
+    <Property Name="ScheduledTasks_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Emails_Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="MailingListScheduledTask">
+    <End Role="MailingList" Type="SpamDB.Store.MailingLists" Multiplicity="0..1" />
+    <End Role="ScheduledTask" Type="SpamDB.Store.ScheduledTasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailingList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScheduledTask">
+        <PropertyRef Name="MailingLists_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmailSender">
+    <End Role="Email" Type="SpamDB.Store.Emails" Multiplicity="*" />
+    <End Role="Sender" Type="SpamDB.Store.Senders" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Sender">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Email">
+        <PropertyRef Name="Senders_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmailServer">
+    <End Role="Email" Type="SpamDB.Store.Emails" Multiplicity="*" />
+    <End Role="Server" Type="SpamDB.Store.Servers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <ReferentialConstraint>
+      <Principal Role="Server">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Email">
+        <PropertyRef Name="Servers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailingListRecepient_MailingList">
+    <End Role="MailingList" Type="SpamDB.Store.MailingLists" Multiplicity="1" />
+    <End Role="MailingListRecepient" Type="SpamDB.Store.MailingListRecepient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailingList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MailingListRecepient">
+        <PropertyRef Name="MailingLists_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailingListRecepient_Recepient">
+    <End Role="MailingListRecepient" Type="SpamDB.Store.MailingListRecepient" Multiplicity="*" />
+    <End Role="Recepient" Type="SpamDB.Store.Recepients" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Recepient">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MailingListRecepient">
+        <PropertyRef Name="Recepients_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduledTaskEmail_ScheduledTask">
+    <End Role="ScheduledTask" Type="SpamDB.Store.ScheduledTasks" Multiplicity="1" />
+    <End Role="ScheduledTaskEmail" Type="SpamDB.Store.ScheduledTaskEmail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ScheduledTask">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScheduledTaskEmail">
+        <PropertyRef Name="ScheduledTasks_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScheduledTaskEmail_Email">
+    <End Role="ScheduledTaskEmail" Type="SpamDB.Store.ScheduledTaskEmail" Multiplicity="*" />
+    <End Role="Email" Type="SpamDB.Store.Emails" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Email">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScheduledTaskEmail">
+        <PropertyRef Name="Emails_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="SpamDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -41,6 +240,9 @@
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Recepient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" />
@@ -118,7 +320,6 @@
         </Association>
         <Association Name="EmailSender">
           <End Type="SpamDB.Email" Role="Email" Multiplicity="*" >
-            <OnDelete Action="Cascade" />
           </End>
           <End Type="SpamDB.Sender" Role="Sender" Multiplicity="1" >
             <OnDelete Action="Cascade" />
@@ -126,7 +327,6 @@
         </Association>
         <Association Name="EmailServer">
           <End Type="SpamDB.Email" Role="Email" Multiplicity="*" >
-            <OnDelete Action="Cascade" />
           </End>
           <End Type="SpamDB.Server" Role="Server" Multiplicity="1" >
             <OnDelete Action="Cascade" />
@@ -136,13 +336,114 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="SpamDB" />
-        <Alias Key="Target" Value="SpamDB.Store" />
-        <EntityContainerMapping CdmEntityContainer="SpamDBContainer" StorageEntityContainer="SpamDBTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SpamDBStoreContainer" CdmEntityContainer="SpamDBContainer">
+    <EntitySetMapping Name="MailingLists">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamDB.MailingList)">
+        <MappingFragment StoreEntitySet="MailingLists">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Decription" ColumnName="Decription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Recepients">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamDB.Recepient)">
+        <MappingFragment StoreEntitySet="Recepients">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScheduledTasks">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamDB.ScheduledTask)">
+        <MappingFragment StoreEntitySet="ScheduledTasks">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emails">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamDB.Email)">
+        <MappingFragment StoreEntitySet="Emails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Body" ColumnName="Body" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Senders">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamDB.Sender)">
+        <MappingFragment StoreEntitySet="Senders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servers">
+      <EntityTypeMapping TypeName="IsTypeOf(SpamDB.Server)">
+        <MappingFragment StoreEntitySet="Servers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+          <ScalarProperty Name="UseSSL" ColumnName="UseSSL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MailingListRecepient" TypeName="SpamDB.MailingListRecepient" StoreEntitySet="MailingListRecepient">
+      <EndProperty Name="MailingList">
+        <ScalarProperty Name="Id" ColumnName="MailingLists_Id" />
+      </EndProperty>
+      <EndProperty Name="Recepient">
+        <ScalarProperty Name="Id" ColumnName="Recepients_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MailingListScheduledTask" TypeName="SpamDB.MailingListScheduledTask" StoreEntitySet="ScheduledTasks">
+      <EndProperty Name="MailingList">
+        <ScalarProperty Name="Id" ColumnName="MailingLists_Id" />
+      </EndProperty>
+      <EndProperty Name="ScheduledTask">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="MailingLists_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ScheduledTaskEmail" TypeName="SpamDB.ScheduledTaskEmail" StoreEntitySet="ScheduledTaskEmail">
+      <EndProperty Name="ScheduledTask">
+        <ScalarProperty Name="Id" ColumnName="ScheduledTasks_Id" />
+      </EndProperty>
+      <EndProperty Name="Email">
+        <ScalarProperty Name="Id" ColumnName="Emails_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmailSender" TypeName="SpamDB.EmailSender" StoreEntitySet="Emails">
+      <EndProperty Name="Sender">
+        <ScalarProperty Name="Id" ColumnName="Senders_Id" />
+      </EndProperty>
+      <EndProperty Name="Email">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EmailServer" TypeName="SpamDB.EmailServer" StoreEntitySet="Emails">
+      <EndProperty Name="Server">
+        <ScalarProperty Name="Id" ColumnName="Servers_Id" />
+      </EndProperty>
+      <EndProperty Name="Email">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -156,6 +457,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
