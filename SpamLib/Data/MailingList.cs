@@ -17,7 +17,7 @@ namespace SpamLib.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MailingList()
         {
-            this.Recepients = new HashSet<Recepient>();
+            this.Recepients = new HashSet<Recipient>();
             this.ScheduledTasks = new HashSet<ScheduledTask>();
         }
     
@@ -26,7 +26,7 @@ namespace SpamLib.Data
         public string Decription { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Recepient> Recepients { get; set; }
+        public virtual ICollection<Recipient> Recepients { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ScheduledTask> ScheduledTasks { get; set; }
     }

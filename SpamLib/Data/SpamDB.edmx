@@ -7,7 +7,7 @@
     <Schema Namespace="Spam.Data.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="SpamDataStoreContainer">
     <EntitySet Name="MailingLists" EntityType="Spam.Data.Store.MailingLists" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Recepients" EntityType="Spam.Data.Store.Recepients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Recipients" EntityType="Spam.Data.Store.Recipients" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ScheduledTasks" EntityType="Spam.Data.Store.ScheduledTasks" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Emails" EntityType="Spam.Data.Store.Emails" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Senders" EntityType="Spam.Data.Store.Senders" store:Type="Tables" Schema="dbo" />
@@ -19,7 +19,7 @@
       <End Role="MailingListRecepient" EntitySet="MailingListRecepient" />
     </AssociationSet>
     <AssociationSet Name="FK_MailingListRecepient_Recepient" Association="Spam.Data.Store.FK_MailingListRecepient_Recepient">
-      <End Role="Recepient" EntitySet="Recepients" />
+      <End Role="Recepient" EntitySet="Recipients" />
       <End Role="MailingListRecepient" EntitySet="MailingListRecepient" />
     </AssociationSet>
     <AssociationSet Name="MailingListScheduledTask" Association="Spam.Data.Store.MailingListScheduledTask">
@@ -51,7 +51,7 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Decription" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
-  <EntityType Name="Recepients">
+  <EntityType Name="Recipients">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -169,7 +169,7 @@
   </Association>
   <Association Name="FK_MailingListRecepient_Recepient">
     <End Role="MailingListRecepient" Type="Spam.Data.Store.MailingListRecepient" Multiplicity="*" />
-    <End Role="Recepient" Type="Spam.Data.Store.Recepients" Multiplicity="1" />
+    <End Role="Recepient" Type="Spam.Data.Store.Recipients" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="Recepient">
         <PropertyRef Name="Id" />
@@ -209,10 +209,10 @@
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Spam.Data" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="SpamDB" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="MailingLists" EntityType="Spam.Data.MailingList" />
-          <EntitySet Name="Recepients" EntityType="Spam.Data.Recepient" />
+          <EntitySet Name="Recipients" EntityType="Spam.Data.Recipient" />
           <AssociationSet Name="MailingListRecepient" Association="Spam.Data.MailingListRecepient">
             <End Role="MailingList" EntitySet="MailingLists" />
-            <End Role="Recepient" EntitySet="Recepients" />
+            <End Role="Recepient" EntitySet="Recipients" />
           </AssociationSet>
           <EntitySet Name="ScheduledTasks" EntityType="Spam.Data.ScheduledTask" />
           <EntitySet Name="Emails" EntityType="Spam.Data.Email" />
@@ -235,7 +235,7 @@
             <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Recepient">
+        <EntityType Name="Recipient">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -257,7 +257,7 @@
         </EntityType>
         <Association Name="MailingListRecepient">
           <End Type="Spam.Data.MailingList" Role="MailingList" Multiplicity="*" />
-          <End Type="Spam.Data.Recepient" Role="Recepient" Multiplicity="*" >
+          <End Type="Spam.Data.Recipient" Role="Recepient" Multiplicity="*" >
           </End>
         </Association>
         <EntityType Name="ScheduledTask">
@@ -342,9 +342,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Recepients">
-      <EntityTypeMapping TypeName="IsTypeOf(Spam.Data.Recepient)">
-        <MappingFragment StoreEntitySet="Recepients">
+    <EntitySetMapping Name="Recipients">
+      <EntityTypeMapping TypeName="IsTypeOf(Spam.Data.Recipient)">
+        <MappingFragment StoreEntitySet="Recipients">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />

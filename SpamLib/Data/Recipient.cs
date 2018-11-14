@@ -12,10 +12,10 @@ namespace SpamLib.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Recepient
+    public partial class Recipient
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Recepient()
+        public Recipient()
         {
             this.MailingLists = new HashSet<MailingList>();
         }

@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cac307cd95cb4367a2bdaf577e7bb9a4" Name="Diagram1" ZoomLevel="85" >
-        <EntityTypeShape EntityType="Spam.Data.Recepient" Width="1.5" PointX="10.375" PointY="0.5" />
+        <EntityTypeShape EntityType="Spam.Data.Recipient" Width="1.5" PointX="10.375" PointY="0.5" />
         <EntityTypeShape EntityType="Spam.Data.Email" Width="1.5" PointX="8.25" PointY="3.375" />
         <EntityTypeShape EntityType="Spam.Data.Sender" Width="1.5" PointX="3.5" PointY="3.5" />
         <EntityTypeShape EntityType="Spam.Data.Server" Width="1.5" PointX="1.25" PointY="0.5" />

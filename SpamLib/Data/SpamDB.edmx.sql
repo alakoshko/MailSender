@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/14/2018 02:59:59
+-- Date Created: 11/14/2018 03:35:23
 -- Generated from EDMX file: D:\Документы\GitHub\MailSender\SpamLib\Data\SpamDB.edmx
 -- --------------------------------------------------
 
@@ -32,11 +32,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ScheduledTaskEmail_Email]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ScheduledTaskEmail] DROP CONSTRAINT [FK_ScheduledTaskEmail_Email];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EmailSender]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Emails] DROP CONSTRAINT [FK_EmailSender];
+IF OBJECT_ID(N'[dbo].[FK_ServerScheduledTask]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ScheduledTasks] DROP CONSTRAINT [FK_ServerScheduledTask];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EmailServer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Emails] DROP CONSTRAINT [FK_EmailServer];
+IF OBJECT_ID(N'[dbo].[FK_SenderScheduledTask]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ScheduledTasks] DROP CONSTRAINT [FK_SenderScheduledTask];
 GO
 
 -- --------------------------------------------------
@@ -80,8 +80,8 @@ CREATE TABLE [dbo].[MailingLists] (
 );
 GO
 
--- Creating table 'Recepients'
-CREATE TABLE [dbo].[Recepients] (
+-- Creating table 'Recipients'
+CREATE TABLE [dbo].[Recipients] (
     [Id] uniqueidentifier  NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Email] nvarchar(max)  NOT NULL,
@@ -156,9 +156,9 @@ ADD CONSTRAINT [PK_MailingLists]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Recepients'
-ALTER TABLE [dbo].[Recepients]
-ADD CONSTRAINT [PK_Recepients]
+-- Creating primary key on [Id] in table 'Recipients'
+ALTER TABLE [dbo].[Recipients]
+ADD CONSTRAINT [PK_Recipients]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -215,7 +215,7 @@ GO
 ALTER TABLE [dbo].[MailingListRecepient]
 ADD CONSTRAINT [FK_MailingListRecepient_Recepient]
     FOREIGN KEY ([Recepients_Id])
-    REFERENCES [dbo].[Recepients]
+    REFERENCES [dbo].[Recipients]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO

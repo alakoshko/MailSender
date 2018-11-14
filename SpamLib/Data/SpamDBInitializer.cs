@@ -32,16 +32,16 @@ namespace SpamLib.Data
                 context.SaveChanges();
             }
 
-            if (!context.Recepients.Any())
-            {
-                context.Recepients.AddOrUpdate(
-                    new Recepient { Name = "Иванов", Email = "ivanov@mail.ru" },
-                    new Recepient { Name = "Петров", Email = "petrov@mail.ru" },
-                    new Recepient { Name = "Васечкин", Email = "vasechkin@mail.ru" },
-                    new Recepient { Name = "Сидоров", Email = "sidorov@mail.ru" }
-                    );
-                context.SaveChanges();
-            }
+            //if (!context.Recipients.Any())
+            //{
+            //    context.Recipients.AddOrUpdate(
+            //        new Recipient { Name = "Иванов", Email = "ivanov@mail.ru" },
+            //        new Recipient { Name = "Петров", Email = "petrov@mail.ru" },
+            //        new Recipient { Name = "Васечкин", Email = "vasechkin@mail.ru" },
+            //        new Recipient { Name = "Сидоров", Email = "sidorov@mail.ru" }
+            //        );
+            //    context.SaveChanges();
+            //}
 
             if (!context.Senders.Any())
             {
@@ -75,13 +75,13 @@ namespace SpamLib.Data
                 context.SaveChanges();
             }
 
-            if (!context.MailingLists.Any())
-            {
-                context.MailingLists.AddOrUpdate(
-                    new MailingList { Name = "List 1", Recepients = context.Recepients.ToArray() }
-                    );
-                context.SaveChanges();
-            }
+            //if (!context.MailingLists.Any())
+            //{
+            //    context.MailingLists.AddOrUpdate(
+            //        new MailingList { Name = "List 1", Recipients = context.Recipients.ToArray() }
+            //        );
+            //    context.SaveChanges();
+            //}
 
             if (!context.ScheduledTasks.Any())
             {

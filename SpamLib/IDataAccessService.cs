@@ -5,44 +5,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MailSender;
+using SpamLib.Data;
 
 namespace SpamLib
 {
     public interface IDataAccessService
     {
-        ObservableCollection<EmployesDB> GetEmployes();
-        Guid CreateNewEmployesDB(EmployesDB employesDB);
-        void UpdateEmployesDB(EmployesDB employesDB);
+        ObservableCollection<Recipient> GetRecipients();
+        //Task<ObservableCollection<Recipient>> GetRecipientsAsync();
+
+        Guid CreateNewRecipientsDB(Recipient Recipients);
+        void UpdateRecipientsDB(Recipient Recipients);
     }
 
     public class DataAccessServiceFromDB : IDataAccessService
     {
-        private EmployesDataContext employesDataContext;
-
-
-        public DataAccessServiceFromDB()
+        public ObservableCollection<Recipient> GetRecipients()
         {
-            employesDataContext = new EmployesDataContext();
+            using (var db = new SpamDB())
+                return new ObservableCollection<Recipient>(db.Recipients.ToArray());
         }
 
-        public ObservableCollection<EmployesDB> GetEmployes()
+        public Guid CreateNewRecipientsDB(Recipient recipient)
         {
-            return new ObservableCollection<EmployesDB>(employesDataContext.EmployesDB.ToArray());
+            using (var db = new SpamDB())
+            {
+                db.Recipients.Add(recipient);
+                if (db.SaveChanges() > 0)
+                    return recipient.Id;
+            }
+            return new Guid();
         }
 
-        public Guid CreateNewEmployesDB(EmployesDB employesDB)
-        {
-            if(employesDB.ID == null)
-                employesDataContext.EmployesDB.InsertOnSubmit(employesDB);
-            employesDataContext.SubmitChanges();
-            return employesDB.ID;
-        }
-
-        public void UpdateEmployesDB(EmployesDB employesDB)
+        public void UpdateRecipientsDB(Recipient Recipients)
         {
             try
             {
-                employesDataContext.SubmitChanges();
+                //RecipientsDataContext.SubmitChanges();
             }
             catch(Exception e)
             {

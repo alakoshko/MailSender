@@ -57,7 +57,7 @@
     <Compile Include="Data\MailingList.cs">
       <DependentUpon>SpamDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Recepient.cs">
+    <Compile Include="Data\Recipient.cs">
       <DependentUpon>SpamDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\ScheduledTask.cs">
@@ -87,11 +87,6 @@
     </Compile>
     <Compile Include="Data\SpamDBInitializer.cs" />
     <Compile Include="IDataAccessService.cs" />
-    <Compile Include="Employes.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Employes.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -112,11 +107,6 @@
     <None Include="Data\SpamDB.edmx.diagram">
       <DependentUpon>SpamDB.edmx</DependentUpon>
     </None>
-    <None Include="Employes.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>Employes.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -126,11 +116,6 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Employes.dbml.layout">
-      <DependentUpon>Employes.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\SpamDB.Context.tt">

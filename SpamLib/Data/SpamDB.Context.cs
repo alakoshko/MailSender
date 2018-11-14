@@ -27,7 +27,7 @@ namespace SpamLib.Data
         }
     
         public virtual DbSet<MailingList> MailingLists { get; set; }
-        public virtual DbSet<Recepient> Recepients { get; set; }
+        public virtual DbSet<Recipient> Recipients { get; set; }
         public virtual DbSet<ScheduledTask> ScheduledTasks { get; set; }
         public virtual DbSet<Email> Emails { get; set; }
         public virtual DbSet<Sender> Senders { get; set; }
