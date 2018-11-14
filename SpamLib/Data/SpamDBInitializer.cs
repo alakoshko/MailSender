@@ -86,9 +86,20 @@ namespace SpamLib.Data
             if (!context.ScheduledTasks.Any())
             {
                 context.ScheduledTasks.AddOrUpdate(
-                    new ScheduledTask { Name = "Первая задача",
+                    new ScheduledTask {
+                        Name = "Первая задача",
                         Emails =context.Emails.OrderBy(e => e.Id).Take(3).ToArray(),
                         Time = DateTime.Now.Subtract(TimeSpan.FromMinutes(30)),
+                        Senders = context.Senders.First(),
+                        Servers = context.Servers.First()
+                    },
+                    new ScheduledTask
+                    {
+                        Name = "Вторая задача",
+                        Emails = context.Emails.OrderBy(e => e.Id).Take(3).ToArray(),
+                        Time = DateTime.Now.Add(TimeSpan.FromMinutes(30)),
+                        Senders = context.Senders.First(),
+                        Servers = context.Servers.First()
                     }
                     );
                 context.SaveChanges();

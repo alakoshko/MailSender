@@ -34,13 +34,13 @@
       <End Role="Email" EntitySet="Emails" />
       <End Role="ScheduledTaskEmail" EntitySet="ScheduledTaskEmail" />
     </AssociationSet>
-    <AssociationSet Name="EmailSender" Association="Spam.Data.Store.EmailSender">
-      <End Role="Email" EntitySet="Emails" />
-      <End Role="Sender" EntitySet="Senders" />
-    </AssociationSet>
-    <AssociationSet Name="EmailServer" Association="Spam.Data.Store.EmailServer">
-      <End Role="Email" EntitySet="Emails" />
+    <AssociationSet Name="ServerScheduledTask" Association="Spam.Data.Store.ServerScheduledTask">
       <End Role="Server" EntitySet="Servers" />
+      <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
+    </AssociationSet>
+    <AssociationSet Name="SenderScheduledTask" Association="Spam.Data.Store.SenderScheduledTask">
+      <End Role="Sender" EntitySet="Senders" />
+      <End Role="ScheduledTask" EntitySet="ScheduledTasks" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="MailingLists">
@@ -64,28 +64,28 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Time" Type="datetime" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
     <Property Name="MailingLists_Id" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="Servers_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Senders_Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Emails">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-    <Property Name="Senders_Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Servers_Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="Senders">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
@@ -96,7 +96,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
@@ -131,31 +131,27 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="EmailSender">
-    <End Role="Email" Type="Spam.Data.Store.Emails" Multiplicity="*" />
-    <End Role="Sender" Type="Spam.Data.Store.Senders" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <ReferentialConstraint>
-      <Principal Role="Sender">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Email">
-        <PropertyRef Name="Senders_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="EmailServer">
-    <End Role="Email" Type="Spam.Data.Store.Emails" Multiplicity="*" />
-    <End Role="Server" Type="Spam.Data.Store.Servers" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
+  <Association Name="ServerScheduledTask">
+    <End Role="Server" Type="Spam.Data.Store.Servers" Multiplicity="1" />
+    <End Role="ScheduledTask" Type="Spam.Data.Store.ScheduledTasks" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Server">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Email">
+      <Dependent Role="ScheduledTask">
         <PropertyRef Name="Servers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SenderScheduledTask">
+    <End Role="Sender" Type="Spam.Data.Store.Senders" Multiplicity="1" />
+    <End Role="ScheduledTask" Type="Spam.Data.Store.ScheduledTasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sender">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScheduledTask">
+        <PropertyRef Name="Senders_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -268,7 +264,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
           <Property Name="Time" Type="DateTime" Nullable="false" />
           <Property Name="Description" Type="String" Unicode="true" Nullable="true" />
@@ -281,7 +277,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" Unicode="true" />
           <Property Name="Body" Type="String" Nullable="false" Unicode="true" />
           <Property Name="Description" Type="String" Unicode="true" Nullable="true" />
@@ -291,7 +287,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" />
           <Property Name="Description" Type="String" Unicode="true" Nullable="true" />
@@ -303,7 +299,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
           <Property Name="Description" Type="String" Unicode="true" Nullable="true" />
           <Property Name="Address" Type="String" Nullable="false" />
@@ -325,13 +321,11 @@
         </Association>
         <Association Name="ServerScheduledTask">
           <End Type="Spam.Data.Server" Role="Server" Multiplicity="1" />
-          <End Type="Spam.Data.ScheduledTask" Role="ScheduledTask" Multiplicity="*" >
-          </End>
+          <End Type="Spam.Data.ScheduledTask" Role="ScheduledTask" Multiplicity="*" />
         </Association>
         <Association Name="SenderScheduledTask">
           <End Type="Spam.Data.Sender" Role="Sender" Multiplicity="1" />
-          <End Type="Spam.Data.ScheduledTask" Role="ScheduledTask" Multiplicity="*" >
-          </End>
+          <End Type="Spam.Data.ScheduledTask" Role="ScheduledTask" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -425,6 +419,22 @@
       </EndProperty>
       <EndProperty Name="Email">
         <ScalarProperty Name="Id" ColumnName="Emails_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ServerScheduledTask" TypeName="Spam.Data.ServerScheduledTask" StoreEntitySet="ScheduledTasks">
+      <EndProperty Name="Server">
+        <ScalarProperty Name="Id" ColumnName="Servers_Id" />
+      </EndProperty>
+      <EndProperty Name="ScheduledTask">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SenderScheduledTask" TypeName="Spam.Data.SenderScheduledTask" StoreEntitySet="ScheduledTasks">
+      <EndProperty Name="Sender">
+        <ScalarProperty Name="Id" ColumnName="Senders_Id" />
+      </EndProperty>
+      <EndProperty Name="ScheduledTask">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

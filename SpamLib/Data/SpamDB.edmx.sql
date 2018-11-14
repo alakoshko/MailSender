@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/14/2018 01:55:44
+-- Date Created: 11/14/2018 02:59:59
 -- Generated from EDMX file: D:\Документы\GitHub\MailSender\SpamLib\Data\SpamDB.edmx
 -- --------------------------------------------------
 
@@ -95,7 +95,9 @@ CREATE TABLE [dbo].[ScheduledTasks] (
     [Name] nvarchar(max)  NOT NULL,
     [Time] datetime  NOT NULL,
     [Description] nvarchar(max)  NULL,
-    [MailingLists_Id] uniqueidentifier  NULL
+    [MailingLists_Id] uniqueidentifier  NULL,
+    [Servers_Id] uniqueidentifier  NOT NULL,
+    [Senders_Id] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -104,9 +106,7 @@ CREATE TABLE [dbo].[Emails] (
     [Id] uniqueidentifier  NOT NULL,
     [Title] nvarchar(max)  NOT NULL,
     [Body] nvarchar(max)  NOT NULL,
-    [Description] nvarchar(max)  NULL,
-    [Senders_Id] uniqueidentifier  NOT NULL,
-    [Servers_Id] uniqueidentifier  NOT NULL
+    [Description] nvarchar(max)  NULL
 );
 GO
 
@@ -265,34 +265,34 @@ ON [dbo].[ScheduledTaskEmail]
     ([Emails_Id]);
 GO
 
--- Creating foreign key on [Senders_Id] in table 'Emails'
-ALTER TABLE [dbo].[Emails]
-ADD CONSTRAINT [FK_EmailSender]
-    FOREIGN KEY ([Senders_Id])
-    REFERENCES [dbo].[Senders]
-        ([Id])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_EmailSender'
-CREATE INDEX [IX_FK_EmailSender]
-ON [dbo].[Emails]
-    ([Senders_Id]);
-GO
-
--- Creating foreign key on [Servers_Id] in table 'Emails'
-ALTER TABLE [dbo].[Emails]
-ADD CONSTRAINT [FK_EmailServer]
+-- Creating foreign key on [Servers_Id] in table 'ScheduledTasks'
+ALTER TABLE [dbo].[ScheduledTasks]
+ADD CONSTRAINT [FK_ServerScheduledTask]
     FOREIGN KEY ([Servers_Id])
     REFERENCES [dbo].[Servers]
         ([Id])
-    ON DELETE CASCADE ON UPDATE NO ACTION;
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_EmailServer'
-CREATE INDEX [IX_FK_EmailServer]
-ON [dbo].[Emails]
+-- Creating non-clustered index for FOREIGN KEY 'FK_ServerScheduledTask'
+CREATE INDEX [IX_FK_ServerScheduledTask]
+ON [dbo].[ScheduledTasks]
     ([Servers_Id]);
+GO
+
+-- Creating foreign key on [Senders_Id] in table 'ScheduledTasks'
+ALTER TABLE [dbo].[ScheduledTasks]
+ADD CONSTRAINT [FK_SenderScheduledTask]
+    FOREIGN KEY ([Senders_Id])
+    REFERENCES [dbo].[Senders]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SenderScheduledTask'
+CREATE INDEX [IX_FK_SenderScheduledTask]
+ON [dbo].[ScheduledTasks]
+    ([Senders_Id]);
 GO
 
 -- --------------------------------------------------
