@@ -187,16 +187,40 @@
             </TabItem>
             <TabItem Header="Редактор писем">
                 <Grid>
-                    <StackPanel>
-                        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Тема:" VerticalAlignment="Top"/>
-                        <TextBox x:Name="tbMailSubject" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Тема ..." VerticalAlignment="Top" Width="780" />
-                        <RichTextBox x:Name="rtbMailBody" Height="398" />
-                    </StackPanel>
-                    
-                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="5*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Письма">
+                        <ListBox/>
+                    </GroupBox>
+                    <GroupBox Grid.Column="1" Header="Письмо">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <GroupBox Grid.Row="0" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="46"/>
+                                        <RowDefinition Height="5*"/>
+                                    </Grid.RowDefinitions>
+                                    <GroupBox Grid.Row="0" Header="Тема письма">
+                                        <TextBox x:Name="tbMailSubject" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Тема ..." VerticalAlignment="Top" Margin="0,0,-2,0" Width="599"  />
+                                    </GroupBox>
+                                    <GroupBox Grid.Row="1" Header="Текст письма">
+                                        <RichTextBox x:Name="rtbMailBody" />
+                                    </GroupBox>
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Grid.Row="1" Header="Комментарий">
+                                <TextBox x:Name="Description"/>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Статистика" IsEnabled="False"/>
         </TabControl>
     </DockPanel>
 </Window>
