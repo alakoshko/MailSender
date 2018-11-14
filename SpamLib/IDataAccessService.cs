@@ -21,6 +21,8 @@ namespace SpamLib
         Task<ObservableCollection<ScheduledTask>> GetScheduledTasks();
 
         Task<Guid> CreateRecipientsAsync(Recipient Recipients);
+
+        Task<ObservableCollection<Email>> GetEmailsAsync();
     }
 
     public class DataAccessServiceFromDB : IDataAccessService
@@ -78,13 +80,19 @@ namespace SpamLib
                 return new ObservableCollection<ScheduledTask>(await db.ScheduledTasks
                     .Include(task => task.Emails)
                     .Include(task => task.MailingLists)
-                    .Include(task => task.MailingLists.Recepients)
+                    .Include(task => task.MailingLists.Recipients)
                     .Include(task => task.Senders)
                     .Include(task => task.Servers)
                     .ToArrayAsync()
                     .ConfigureAwait(false)
                     );
             }
+        }
+
+        public async Task<ObservableCollection<Email>> GetEmailsAsync()
+        {
+            using (var db = new SpamDB())
+                return new ObservableCollection<Email>(await db.Emails.ToArrayAsync());
         }
     }
 }

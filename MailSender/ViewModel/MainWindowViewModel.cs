@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using SpamLib;
+using SpamLib.Data;
 using System.Windows.Input;
 using System.Net.Mail;
 
@@ -21,41 +22,60 @@ namespace MailSender.ViewModel
             get => _Title;
             set => Set(ref _Title, value);
         }
-
-        private EmployesDB _CurrentEmployesDB = new EmployesDB();
-        public EmployesDB CurrentEmployesDB
+        #region Recipient
+        private Recipient _CurrentRecipient = new Recipient();
+        public Recipient CurrentRecipient
         {
-            get => _CurrentEmployesDB;
-            set => Set(ref _CurrentEmployesDB, value);
+            get => _CurrentRecipient;
+            set => Set(ref _CurrentRecipient, value);
         }
 
-        public ObservableCollection<EmployesDB> EmployesDBs { get; private set; }
+        private ObservableCollection<Recipient> _Recipients;
+        public ObservableCollection<Recipient> Recipients { get => _Recipients;
+            private set => Set(ref _Recipients, value);
+        }
+        #endregion
+
+        #region Emails
+        private ObservableCollection<Email> _Emails;
+        public ObservableCollection<Email> Emails
+        {
+            get => _Emails;
+            private set => Set(ref _Emails, value);
+        }
+
+        private Email _SelectedEmail = new Email();
+        public Email SelectedEmail
+        {
+            get => _SelectedEmail;
+            set => Set(ref _SelectedEmail, value);
+        }
+        #endregion
 
         #region Команды
-        public ICommand UpdateDataCommand { get; }
-        public bool UpdateDataCommandCanExecute() => true;
-        private void OnUpdateDataCommandExecuted()
+        public ICommand GetRecipientsCommand { get; }
+        public bool GetRecipientsCommandCanExecute() => true;
+        private void OnGetRecipientsCommandExecuted()
         {
-            EmployesDBs = _DataAccessService.GetEmployes();
-            RaisePropertyChanged(nameof(EmployesDBs));
-
+            Recipients = _DataAccessService.GetRecipients();
+            RaisePropertyChanged(nameof(Recipients));
         }
 
-        public ICommand UpdateCurrentEmployesDB { get; }
-        public bool UpdateCurrentEmployesDBCanExecute(EmployesDB employesDB) => employesDB != null;// || _CurrentEmployesDB != null;
-        private void OnUpdateCurrentEmployesDBExecuted(EmployesDB employesDB)
-        {
-            //if (_DataAccessService.CreateNewEmployesDB(employesDB) != null )
-            //    EmployesDBs.Add(employesDB);
-            _DataAccessService.UpdateEmployesDB(employesDB);
-        }
+        //public ICommand UpdateCurrentEmployesDB { get; }
+        //public bool UpdateCurrentEmployesDBCanExecute(EmployesDB employesDB) => employesDB != null;// || _CurrentEmployesDB != null;
+        //private void OnUpdateCurrentEmployesDBExecuted(EmployesDB employesDB)
+        //{
+        //    //if (_DataAccessService.CreateNewEmployesDB(employesDB) != null )
+        //    //    EmployesDBs.Add(employesDB);
+        //    _DataAccessService.UpdateEmployesDB(employesDB);
+        //}
 
-        public ICommand CreateNewEmployesDB { get; }
-        private void OnCreateNewEmployesDBExecuted(EmployesDB employesDB)
-        {
-            CurrentEmployesDB = new EmployesDB();
-            EmployesDBs.Add(CurrentEmployesDB);
-        }
+        //public ICommand CreateNewEmployesDB { get; }
+        //private void OnCreateNewEmployesDBExecuted(EmployesDB employesDB)
+        //{
+        //    CurrentEmployesDB = new EmployesDB();
+        //    EmployesDBs.Add(CurrentEmployesDB);
+        //}
 
 
 
@@ -75,12 +95,23 @@ namespace MailSender.ViewModel
         public MainWindowViewModel(IDataAccessService dataAccessService)
         {
             _DataAccessService = dataAccessService;
-            //EmployesDBs = _DataAccessService.GetEmployes();
+            
 
-            UpdateDataCommand = new RelayCommand(OnUpdateDataCommandExecuted, UpdateDataCommandCanExecute);
-            UpdateCurrentEmployesDB = new RelayCommand<EmployesDB>(OnUpdateCurrentEmployesDBExecuted, UpdateCurrentEmployesDBCanExecute);
-            CreateNewEmployesDB = new RelayCommand<EmployesDB>(OnCreateNewEmployesDBExecuted);
+            //UpdateDataCommand = new RelayCommand(OnUpdateDataCommandExecuted, UpdateDataCommandCanExecute);
+            //UpdateCurrentRecipient = new RelayCommand<Recipient>(OnUpdateCurrentRecipientExecuted, UpdateCurrentRecipientCanExecute);
+            //CreateRecipient = new RelayCommand<Recipient>(OnCreateRecipientExecuted);
             //ClickSendMail = new RelayCommand(OnClickSendMailExecuted, ClickSendMailCanExecute);
+
+            InitializeAsync();
+        }
+
+        private async void InitializeAsync()
+        {
+            if (IsInDesignMode) return;
+
+            Recipients = await _DataAccessService.GetRecipientsAsync();
+            Emails = await _DataAccessService.GetEmailsAsync();
+            SelectedEmail = Emails.FirstOrDefault();
         }
     }
 }

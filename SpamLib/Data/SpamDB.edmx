@@ -106,10 +106,10 @@
   <EntityType Name="MailingListRecepient">
     <Key>
       <PropertyRef Name="MailingLists_Id" />
-      <PropertyRef Name="Recepients_Id" />
+      <PropertyRef Name="Recipients_Id" />
     </Key>
     <Property Name="MailingLists_Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Recepients_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Recipients_Id" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="ScheduledTaskEmail">
     <Key>
@@ -175,7 +175,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="MailingListRecepient">
-        <PropertyRef Name="Recepients_Id" />
+        <PropertyRef Name="Recipients_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -252,7 +252,7 @@
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" Unicode="true" />
           <Property Name="Decription" Type="String" Unicode="true" Nullable="true" />
-          <NavigationProperty Name="Recepients" Relationship="Spam.Data.MailingListRecepient" FromRole="MailingList" ToRole="Recepient" />
+          <NavigationProperty Name="Recipients" Relationship="Spam.Data.MailingListRecepient" FromRole="MailingList" ToRole="Recepient" />
           <NavigationProperty Name="ScheduledTasks" Relationship="Spam.Data.MailingListScheduledTask" FromRole="MailingList" ToRole="ScheduledTask" />
         </EntityType>
         <Association Name="MailingListRecepient">
@@ -401,7 +401,7 @@
         <ScalarProperty Name="Id" ColumnName="MailingLists_Id" />
       </EndProperty>
       <EndProperty Name="Recepient">
-        <ScalarProperty Name="Id" ColumnName="Recepients_Id" />
+        <ScalarProperty Name="Id" ColumnName="Recipients_Id" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="MailingListScheduledTask" TypeName="Spam.Data.MailingListScheduledTask" StoreEntitySet="ScheduledTasks">

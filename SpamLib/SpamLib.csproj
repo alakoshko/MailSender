@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBase.cs" />
     <Compile Include="Data\Email.cs">
       <DependentUpon>SpamDB.tt</DependentUpon>
     </Compile>
@@ -106,6 +105,7 @@
     </EntityDeploy>
     <None Include="Data\SpamDB.edmx.diagram">
       <DependentUpon>SpamDB.edmx</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

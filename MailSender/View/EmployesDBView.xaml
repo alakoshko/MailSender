@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:MailSender.View"
+             xmlns:s="clr-namespace:SpamLib.Data;assembly=SpamLib"
              DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
              d:DesignHeight="400" d:DesignWidth="800">
     <i:Interaction.Triggers>
@@ -22,18 +23,18 @@
         </DockPanel>
         <Button DockPanel.Dock="Bottom" Content="Обновить данные" HorizontalAlignment="Center"
                 Padding="10,5" Margin="0,5" Height="26"
-                Command="{Binding UpdateDataCommand}"/>
-        <!--<DataGrid DockPanel.Dock="Bottom" Name="dgMailTo" ItemsSource="{Binding EmployesDBs}"
+                Command="{Binding GetRecipientsCommand}"/>
+        <!--<DataGrid DockPanel.Dock="Bottom" Name="dgMailTo" ItemsSource="{Binding Recipients}"
                                   AutoGenerateColumns="False"
-                                  SelectedItem="{Binding CurrentEmployesDB}"
+                                  SelectedItem="{Binding CurrentRecipient}"
                                   AlternatingRowBackground="LightSkyBlue"
                                   IsReadOnly="True" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
+                --><!--<DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>--><!--
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>
+                --><!--<DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>--><!--
                 <DataGridTextColumn Header="eMail" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Коментарий" Binding="{Binding Comment}" Width="*"/>
+                <DataGridTextColumn Header="Коментарий" Binding="{Binding Description}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>-->
         <Border>
@@ -44,8 +45,8 @@
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Border.Resources>
-            <ListView ItemsSource="{Binding EmployesDBs}"
-            SelectedItem="{Binding CurrentEmployesDB}">
+            <ListView ItemsSource="{Binding Recipients}"
+            SelectedItem="{Binding CurrentRecipient}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

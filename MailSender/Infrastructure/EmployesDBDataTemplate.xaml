@@ -1,9 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:spam="clr-namespace:SpamLib;assembly=SpamLib"
+                    xmlns:spam="clr-namespace:SpamLib.Data;assembly=SpamLib"
+                    xmlns:sd="clr-namespace:SpamLib.Data;assembly=SpamLib"
 
                     >
-    <DataTemplate DataType="{x:Type spam:EmployesDB}">
+    <DataTemplate DataType="{x:Type sd:Recipient}">
         <Border BorderThickness="1" BorderBrush="Black" Margin="2" >
             <Border.Style>
                 <Style TargetType="Border">
@@ -46,17 +47,17 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding ID}"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Фамилия:" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding LastName}"/>
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Имя:" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Name}"/>
-                <TextBlock Grid.Row="3" Grid.Column="0" Text="Отчество:" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Patronymic}"/>
-                <TextBlock Grid.Row="4" Grid.Column="0" Text="eMail" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Email}"/>
-                <TextBlock Grid.Row="5" Grid.Column="0" Text="Коментарий:" HorizontalAlignment="Left"/>
-                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Comment}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Id}"/>
+                <!--<TextBlock Grid.Row="1" Grid.Column="0" Text="Фамилия:" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding LastName}"/>-->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Имя:" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Name}"/>
+                <!--<TextBlock Grid.Row="3" Grid.Column="0" Text="Отчество:" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Patronymic}"/>-->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="eMail" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Email}"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Коментарий:" HorizontalAlignment="Left"/>
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Description}"/>
             </Grid>
         </Border>
 

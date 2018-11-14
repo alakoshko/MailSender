@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/14/2018 03:35:23
+-- Date Created: 11/15/2018 02:00:54
 -- Generated from EDMX file: D:\Документы\GitHub\MailSender\SpamLib\Data\SpamDB.edmx
 -- --------------------------------------------------
 
@@ -46,8 +46,8 @@ GO
 IF OBJECT_ID(N'[dbo].[MailingLists]', 'U') IS NOT NULL
     DROP TABLE [dbo].[MailingLists];
 GO
-IF OBJECT_ID(N'[dbo].[Recepients]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Recepients];
+IF OBJECT_ID(N'[dbo].[Recipients]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Recipients];
 GO
 IF OBJECT_ID(N'[dbo].[ScheduledTasks]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ScheduledTasks];
@@ -135,7 +135,7 @@ GO
 -- Creating table 'MailingListRecepient'
 CREATE TABLE [dbo].[MailingListRecepient] (
     [MailingLists_Id] uniqueidentifier  NOT NULL,
-    [Recepients_Id] uniqueidentifier  NOT NULL
+    [Recipients_Id] uniqueidentifier  NOT NULL
 );
 GO
 
@@ -186,10 +186,10 @@ ADD CONSTRAINT [PK_Servers]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [MailingLists_Id], [Recepients_Id] in table 'MailingListRecepient'
+-- Creating primary key on [MailingLists_Id], [Recipients_Id] in table 'MailingListRecepient'
 ALTER TABLE [dbo].[MailingListRecepient]
 ADD CONSTRAINT [PK_MailingListRecepient]
-    PRIMARY KEY CLUSTERED ([MailingLists_Id], [Recepients_Id] ASC);
+    PRIMARY KEY CLUSTERED ([MailingLists_Id], [Recipients_Id] ASC);
 GO
 
 -- Creating primary key on [ScheduledTasks_Id], [Emails_Id] in table 'ScheduledTaskEmail'
@@ -211,10 +211,10 @@ ADD CONSTRAINT [FK_MailingListRecepient_MailingList]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Recepients_Id] in table 'MailingListRecepient'
+-- Creating foreign key on [Recipients_Id] in table 'MailingListRecepient'
 ALTER TABLE [dbo].[MailingListRecepient]
 ADD CONSTRAINT [FK_MailingListRecepient_Recepient]
-    FOREIGN KEY ([Recepients_Id])
+    FOREIGN KEY ([Recipients_Id])
     REFERENCES [dbo].[Recipients]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -223,7 +223,7 @@ GO
 -- Creating non-clustered index for FOREIGN KEY 'FK_MailingListRecepient_Recepient'
 CREATE INDEX [IX_FK_MailingListRecepient_Recepient]
 ON [dbo].[MailingListRecepient]
-    ([Recepients_Id]);
+    ([Recipients_Id]);
 GO
 
 -- Creating foreign key on [MailingLists_Id] in table 'ScheduledTasks'

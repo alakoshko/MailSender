@@ -71,7 +71,7 @@
                         <ToolBar Band="0" BandIndex="1">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                                 <TextBlock Text="Theme: " Margin="5,0,0,0" />
-                                <ComboBox x:Name="themes" Width="150" Height="20" SelectionChanged="themes_SelectionChanged" SelectedIndex="17" IsEditable="True" />
+                                <ComboBox x:Name="themes" Width="150" Height="20" SelectionChanged="themes_SelectionChanged" SelectedIndex="13" IsEditable="True" />
                             </StackPanel>
                         </ToolBar>
                         <ToolBar Band="1" BandIndex="0">

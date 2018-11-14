@@ -32,16 +32,16 @@ namespace SpamLib.Data
                 context.SaveChanges();
             }
 
-            //if (!context.Recipients.Any())
-            //{
-            //    context.Recipients.AddOrUpdate(
-            //        new Recipient { Name = "Иванов", Email = "ivanov@mail.ru" },
-            //        new Recipient { Name = "Петров", Email = "petrov@mail.ru" },
-            //        new Recipient { Name = "Васечкин", Email = "vasechkin@mail.ru" },
-            //        new Recipient { Name = "Сидоров", Email = "sidorov@mail.ru" }
-            //        );
-            //    context.SaveChanges();
-            //}
+            if (!context.Recipients.Any())
+            {
+                context.Recipients.AddOrUpdate(
+                    new Recipient { Name = "Иванов", Email = "ivanov@mail.ru" },
+                    new Recipient { Name = "Петров", Email = "petrov@mail.ru" },
+                    new Recipient { Name = "Васечкин", Email = "vasechkin@mail.ru" },
+                    new Recipient { Name = "Сидоров", Email = "sidorov@mail.ru" }
+                    );
+                context.SaveChanges();
+            }
 
             if (!context.Senders.Any())
             {
@@ -75,20 +75,20 @@ namespace SpamLib.Data
                 context.SaveChanges();
             }
 
-            //if (!context.MailingLists.Any())
-            //{
-            //    context.MailingLists.AddOrUpdate(
-            //        new MailingList { Name = "List 1", Recipients = context.Recipients.ToArray() }
-            //        );
-            //    context.SaveChanges();
-            //}
+            if (!context.MailingLists.Any())
+            {
+                context.MailingLists.AddOrUpdate(
+                    new MailingList { Name = "List 1", Recipients = context.Recipients.ToArray() }
+                    );
+                context.SaveChanges();
+            }
 
             if (!context.ScheduledTasks.Any())
             {
                 context.ScheduledTasks.AddOrUpdate(
                     new ScheduledTask {
                         Name = "Первая задача",
-                        Emails =context.Emails.OrderBy(e => e.Id).Take(3).ToArray(),
+                        Emails = context.Emails.OrderBy(e => e.Id).Take(3).ToArray(),
                         Time = DateTime.Now.Subtract(TimeSpan.FromMinutes(30)),
                         Senders = context.Senders.First(),
                         Servers = context.Servers.First()
