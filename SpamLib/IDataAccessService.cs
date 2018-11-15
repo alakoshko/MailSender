@@ -15,14 +15,23 @@ namespace SpamLib
         ObservableCollection<Recipient> GetRecipients();
         Task<ObservableCollection<Recipient>> GetRecipientsAsync();
 
-        Guid CreateNewRecipientsDB(Recipient Recipients);
-        void UpdateRecipientsDB(Recipient Recipients);
+        //Guid CreateNewRecipients(Recipient Recipients);
+        //void UpdateRecipients(Recipient Recipients);
 
         Task<ObservableCollection<ScheduledTask>> GetScheduledTasks();
 
         Task<Guid> CreateRecipientsAsync(Recipient Recipients);
 
+        #region Письма
         Task<ObservableCollection<Email>> GetEmailsAsync();
+        Task<bool> AddNewEmailAsync(Email email);
+        Task<bool> RemoveEmailAsync(Email email);
+        #endregion
+
+        //ObservableCollection<Server> GetServers();
+        Task<ObservableCollection<Server>> GetServersAsync();
+        //ObservableCollection<Sender> GetSenders();
+        Task<ObservableCollection<Sender>> GetSendersAsync();
     }
 
     public class DataAccessServiceFromDB : IDataAccessService
@@ -92,7 +101,41 @@ namespace SpamLib
         public async Task<ObservableCollection<Email>> GetEmailsAsync()
         {
             using (var db = new SpamDB())
-                return new ObservableCollection<Email>(await db.Emails.ToArrayAsync());
+                return new ObservableCollection<Email>(await db.Emails
+                    .Include(email => email.ScheduledTasks)
+                    .ToArrayAsync());
+        }
+
+        public async Task<ObservableCollection<Server>> GetServersAsync()
+        {
+            using (var db = new SpamDB())
+                return new ObservableCollection<Server>(await db.Servers.ToArrayAsync());
+        }
+
+        public async Task<ObservableCollection<Sender>> GetSendersAsync()
+        {
+            using (var db = new SpamDB())
+                return new ObservableCollection<Sender>(await db.Senders.ToArrayAsync());
+        }
+
+        public async Task<bool> AddNewEmailAsync(Email email)
+        {
+            using (var db = new SpamDB())
+            {
+                db.Emails.Add(email);
+                return await db.SaveChangesAsync() > 0;
+            }
+        }
+
+        public async Task<bool> RemoveEmailAsync(Email email)
+        {
+            using (var db = new SpamDB())
+            {
+                db.Emails.Attach(email);
+                
+                db.Emails.Remove(email);
+                return await db.SaveChangesAsync() > 0;
+            }
         }
     }
 }

@@ -11,6 +11,7 @@
     xmlns:is="clr-namespace:MailSender.Infrastructure"
     x:Class="MailSender.MainWindow"
     xmlns:themes="clr-namespace:WPF.Themes;assembly=WPF.Themes"
+    xmlns:data="clr-namespace:SpamLib.Data;assembly=SpamLib"
     DataContext="{Binding MainWindow, Source={StaticResource Locator}}"
     themes:ThemeManager.Theme="{Binding ElementName=themes, Path=SelectedItem}"
     Loaded="Window_Loaded"
@@ -40,8 +41,11 @@
                     </Grid.RowDefinitions>
                     <ToolBarTray Grid.Row="0">
                         <ToolBar>
-                            <is:ItemsCollectionControl x:Name="cbMailFrom" VerticalAlignment="Center" HorizontalAlignment="Left" PanelName="Отправитель:" 
-                                ItemSource="{x:Static spam:MailSenders.Senders}"/>
+                            <is:ItemsCollectionControl x:Name="cbMailFrom" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                                       PanelName="Отправитель:" 
+                                                       ItemSource="{Binding Senders}"
+                                                       
+                                />
                             <!--<TextBlock Text="Отправители" VerticalAlignment="Center" Margin="0,0,3,0"/>
                             <ComboBox Name="cbMailFrom" Width="150" SelectedIndex="1" ItemsSource="{x:Static spam:MailSenders.Senders}">
                                 <ComboBox.ItemTemplate>
@@ -86,34 +90,7 @@
                             <!--<empV:SmtpServersView />-->
                             
                             
-                            <!--<TextBlock Text="Серверы" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                            <ComboBox x:Name="cbSmtpServers" Width="150" SelectedIndex="0" ItemsSource="{x:Static ms:SmtpServers.Servers}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate DataType="spam:SmtpServer">
-                                        <StackPanel>
-                                            <TextBlock><InlineUIContainer>
-                                                    <TextBlock Text="{Binding ServerName}"/>
-                                                </InlineUIContainer><Run Text=":"/><InlineUIContainer>
-                                                    <TextBlock Text="{Binding ServerPort}"/>
-                                                </InlineUIContainer></TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <TextBlock VerticalAlignment="Center"><Run Text="логин: "/><InlineUIContainer>
-                                    <TextBox x:Name="tbSmtpServerLogin"  Width="150" />
-                                </InlineUIContainer><Run Text=" пароль: "/><InlineUIContainer>
-                                    <PasswordBox x:Name="pbSmtpServerPass" Width="150" />
-                                </InlineUIContainer></TextBlock>
-                            <Button ToolTip="Добавить сервер">
-                                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="LightSeaGreen"/>
-                            </Button>
-                            <Button ToolTip="Удалить сервер">
-                                <fa:ImageAwesome Height="16" Icon="Remove" Foreground="OrangeRed"/>
-                            </Button>
-                            <Button ToolTip="Редактировать список">
-                                <fa:ImageAwesome Height="16" Icon="Edit" Foreground="YellowGreen"/>
-                            </Button>-->
+                           
                         </ToolBar>
                         <ToolBar Band="0" BandIndex="1">
                             <Button Click="GoToPlannerButton_OnClick">
@@ -123,30 +100,6 @@
                                 </StackPanel>
                             </Button>
                         </ToolBar>
-                        <!--<ToolBar Band="2">
-                            <TextBlock VerticalAlignment="Center" Text="Список адресов"/>
-                            <ComboBox x:Name="cbRecivers" Width="150" SelectedIndex="0" >
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate DataType="spam:Receiver">
-                                        <StackPanel>
-                                            <TextBlock>
-                                                <TextBlock Text="{Binding Name}"/>
-                                                <TextBlock Text="{Binding Email}"/>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                            <Button ToolTip="Добавить адрес">
-                                <fa:ImageAwesome Height="16" Icon="PlusCircle" Foreground="LightSeaGreen"/>
-                            </Button>
-                            <Button ToolTip="Удалить адрес">
-                                <fa:ImageAwesome Height="16" Icon="Remove" Foreground="OrangeRed"/>
-                            </Button>
-                            <Button ToolTip="Редактировать список">
-                                <fa:ImageAwesome Height="16" Icon="Edit" Foreground="YellowGreen"/>
-                            </Button>
-                        </ToolBar>-->
                     </ToolBarTray>
                     
                     <Grid Grid.Row="1">
@@ -176,7 +129,7 @@
                         <TextBlock Text="Время"/>
                         <xctk:TimePicker/>
                         <Button Content="Запланировать"/>
-                        <Button Content="Отправить немедленно" Click="Button_Click"/>
+                        <Button Content="Отправить немедленно" Command="{Binding}"/>
                         
                     </StackPanel>
                     <GroupBox Grid.Column="1" Header="Список расписания">
@@ -192,9 +145,42 @@
                         <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Письма">
-                        <ListBox/>
+                        <DockPanel>
+                            <UniformGrid Rows="1" DockPanel.Dock="Bottom">
+                                <Button Height="23" Command="{Binding AddNewEmailCommand}">
+                                    <fa:ImageAwesome Icon="Plus" Foreground="GreenYellow"/>
+                                </Button>
+                                <Button Height="23" Command="{Binding RemoveEmailCommand}" 
+                                        CommandParameter="{Binding SelectedItems, ElementName=EmailsList}">
+                                    <fa:ImageAwesome Icon="Remove" Foreground="OrangeRed"/>
+                                </Button>
+                            </UniformGrid>
+                            <ListBox Name="EmailsList" ItemsSource="{Binding Emails}" SelectedItem="{Binding SelectedEmail}" 
+                                     SelectionMode="Extended">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListBoxItem}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type data:Email}">
+                                        <DockPanel>
+                                            <Button DockPanel.Dock="Right" 
+                                                    Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+                                                    BorderBrush="{x:Null}" Background="{x:Null}"
+                                                    Command="{Binding MainWindow.RemoveEmailCommand, Source={StaticResource Locator}}"
+                                                    CommandParameter="{Binding}">
+                                                <fa:ImageAwesome Icon="Remove" Foreground="OrangeRed"/>
+                                            </Button>
+
+                                            <TextBlock Text="{Binding Title}"/>
+                                        </DockPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </DockPanel>
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header="Письмо">
+                    <GroupBox Grid.Column="1" Header="{Binding Id,  StringFormat='Письмо id:({0})'}" DataContext="{Binding SelectedEmail}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="5*"/>
@@ -207,15 +193,17 @@
                                         <RowDefinition Height="5*"/>
                                     </Grid.RowDefinitions>
                                     <GroupBox Grid.Row="0" Header="Тема письма">
-                                        <TextBox x:Name="tbMailSubject" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Тема ..." VerticalAlignment="Top" Margin="0,0,-2,0" Width="599"  />
+                                        <!--<TextBox x:Name="tbMailSubject" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="Тема ..." VerticalAlignment="Top" Margin="0,0,-2,0" Width="599"  />-->
+                                        <TextBox Text="{Binding Title}" />
                                     </GroupBox>
                                     <GroupBox Grid.Row="1" Header="Текст письма">
-                                        <RichTextBox x:Name="rtbMailBody" />
+                                        <!--<RichTextBox x:Name="rtbMailBody" />-->
+                                        <TextBox Text="{Binding Body}"/>
                                     </GroupBox>
                                 </Grid>
                             </GroupBox>
                             <GroupBox Grid.Row="1" Header="Комментарий">
-                                <TextBox x:Name="Description"/>
+                                <TextBox Text="{Binding Description}"/>
                             </GroupBox>
                         </Grid>
                     </GroupBox>
