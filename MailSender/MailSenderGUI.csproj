@@ -108,19 +108,16 @@
     <Compile Include="SendCompleteDialog.xaml.cs">
       <DependentUpon>SendCompleteDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestWindow.xaml.cs">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\EmployesDBView.xaml.cs">
-      <DependentUpon>EmployesDBView.xaml</DependentUpon>
+    <Compile Include="View\RecipientsView.xaml.cs">
+      <DependentUpon>RecipientsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\EmployesDBEditView.xaml.cs">
-      <DependentUpon>EmployesDBEditView.xaml</DependentUpon>
+    <Compile Include="View\RecipientsEditView.xaml.cs">
+      <DependentUpon>RecipientsEditView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Infrastructure\EmployesDBDataTemplate.xaml">
+    <Page Include="Infrastructure\RecipientDataTemplate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,15 +145,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TestWindow.xaml">
+    <Page Include="View\RecipientsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\EmployesDBView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EmployesDBEditView.xaml">
+    <Page Include="View\RecipientsEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

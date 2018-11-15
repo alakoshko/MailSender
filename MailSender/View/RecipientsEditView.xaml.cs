@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace MailSender.View
 {
     /// <summary>
-    /// Логика взаимодействия для EmployesDBView.xaml
+    /// Логика взаимодействия для EmployesEditView.xaml
     /// </summary>
-    public partial class EmployesDBView : UserControl
+    public partial class RecipientEditView : UserControl
     {
-        public EmployesDBView()
+        public RecipientEditView()
         {
             InitializeComponent();
         }

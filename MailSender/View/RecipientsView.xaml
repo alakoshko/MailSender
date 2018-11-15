@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MailSender.View.EmployesDBView"
+﻿<UserControl x:Class="MailSender.View.RecipientsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
@@ -41,7 +41,7 @@
             <Border.Resources>
                 <ResourceDictionary>
                     <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="../Infrastructure/EmployesDBDataTemplate.xaml"/>
+                        <ResourceDictionary Source="../Infrastructure/RecipientDataTemplate.xaml"/>
                     </ResourceDictionary.MergedDictionaries>
                 </ResourceDictionary>
             </Border.Resources>
