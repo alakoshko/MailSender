@@ -102,6 +102,7 @@
     </ApplicationDefinition>
     <Compile Include="DebugTriggerTextBlock.cs" />
     <Compile Include="Infrastructure\ItemsCollectionControl.cs" />
+    <Compile Include="Infrastructure\ServersUseSSlBooleanConverter.cs" />
     <Compile Include="View\SmtpServersView.xaml.cs">
       <DependentUpon>SmtpServersView.xaml</DependentUpon>
     </Compile>

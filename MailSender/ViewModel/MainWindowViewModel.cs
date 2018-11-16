@@ -11,6 +11,7 @@ using SpamLib.Data;
 using System.Windows.Input;
 using System.Net.Mail;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace MailSender.ViewModel
 {
@@ -148,7 +149,12 @@ namespace MailSender.ViewModel
         public ICommand AddNewEmailCommand { get; }
         private async void OnAddNewEmailCommandExecuted()
         {
-            var new_email = new Email();
+            var count = Emails.Count(email => Regex.IsMatch(email.Title, "Письмо( \\d+)?"));
+            var new_email = new Email {
+                Title = count == 0 ? "Письмо" : $"Письмо {count + 1}",
+                Body = count == 0 ? "Текст письма..." : $"Текст письма №{count + 1}..."
+            };
+
             if (await _DataAccessService.AddNewEmailAsync(new_email))
                 Emails.Add(new_email);
         }

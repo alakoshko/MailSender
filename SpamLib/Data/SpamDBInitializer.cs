@@ -11,7 +11,8 @@ namespace SpamLib.Data
 {
     public partial class SpamDB
     {
-        static SpamDB() => Database.SetInitializer(new SpamDBInitializer());
+        //static SpamDB() => Database.SetInitializer(new SpamDBInitializer());
+        //static SpamDB() => Database.SetInitializer<SpamDB>(new CreateDatabaseIfNotExists<SpamDBInitializer>());
     }
 
 
@@ -43,16 +44,6 @@ namespace SpamLib.Data
                 context.SaveChanges();
             }
 
-            if (!context.Senders.Any())
-            {
-                context.Senders.AddOrUpdate(
-                    new Sender { Name = "Васечкин", Email = "vasechkin@mail.ru", Login = "vasechkin", Password = "pass1" },
-                    new Sender { Name = "Иванов", Email = "ivanov@mail.ru", Login = "ivanov", Password = "pass2" },
-                    new Sender { Name = "Петров", Email = "petrov@mail.ru", Login = "petrov", Password = "pass3" },
-                    new Sender { Name = "Сидоров", Email = "sidorov@mail.ru", Login = "sidorov", Password = "pass4" }
-                    );
-                context.SaveChanges();
-            }
 
             if (!context.Senders.Any())
             {
@@ -68,9 +59,9 @@ namespace SpamLib.Data
             if (!context.Servers.Any())
             {
                 context.Servers.AddOrUpdate(
-                    new Server { Name = "Yandex", Address="smtp.yandex.ru", Port=25, UseSSL=true },
-                    new Server { Name = "Mail", Address = "smtp.mail.ru", Port = 25, UseSSL = true },
-                    new Server { Name = "Gmail", Address = "smtp.gmail.ru", Port = 25, UseSSL = true }
+                    new Server { Name = "Yandex", Address="smtp.yandex.ru", Port=25, UseSSL=true, Login="a.lakoshko" },
+                    new Server { Name = "Mail", Address = "smtp.mail.ru", Port = 25, UseSSL = true, Login = "al@tmone.ru" },
+                    new Server { Name = "Gmail", Address = "smtp.gmail.ru", Port = 25, UseSSL = true, Login = "alakoshko" }
                     );
                 context.SaveChanges();
             }

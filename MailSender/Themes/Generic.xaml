@@ -1,4 +1,4 @@
-<ResourceDictionary
+﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:fa="http://schemas.fontawesome.io/icons/"
@@ -27,8 +27,37 @@
                         <ComboBox x:Name="CollectionView" SelectedIndex="0" Width="200" 
                                   ItemsSource="{TemplateBinding ItemSource}"
                                   SelectedItem="{TemplateBinding SelectedItem}"
-                                  IsEditable="True">
-                            
+                                  >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Email}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                            <TextBlock Text="{Binding Name}"/> &lt;<TextBlock Text="{Binding Email}"/>&gt;
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Port}" Value="{x:Null}">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                            <TextBlock Text="{Binding Address}"/>:<TextBlock Text="{Binding Port}"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
                         </ComboBox>
                         
 
@@ -44,6 +73,8 @@
                                 Command="{TemplateBinding EditCommand}" CommandParameter="{Binding SelectedItem, ElementName=CollectionView}">
                             <fa:ImageAwesome Icon="Edit" Foreground="YellowGreen"/>
                         </Button>
+
+                       
                     </DockPanel>
                 </ControlTemplate>
             </Setter.Value>

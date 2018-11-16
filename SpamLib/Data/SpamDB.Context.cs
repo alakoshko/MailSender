@@ -19,7 +19,9 @@ namespace SpamLib.Data
             : base("name=SpamDB")
         {
             this.Configuration.LazyLoadingEnabled = false;
+            //Database.SetInitializer<SpamDB>(new CreateDatabaseIfNotExists<SpamDB>());
         }
+    
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

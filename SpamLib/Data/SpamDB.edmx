@@ -102,6 +102,8 @@
     <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Port" Type="smallint" Nullable="false" />
     <Property Name="UseSSL" Type="bit" Nullable="false" />
+    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="MailingListRecepient">
     <Key>
@@ -306,6 +308,8 @@
           <Property Name="Port" Type="Int16" Nullable="false" />
           <Property Name="UseSSL" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ScheduledTasks" Relationship="Spam.Data.ServerScheduledTask" FromRole="Server" ToRole="ScheduledTask" />
+          <Property Name="Login" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" Unicode="true" />
         </EntityType>
         <Association Name="MailingListScheduledTask">
           <End Type="Spam.Data.MailingList" Role="MailingList" Multiplicity="0..1" >
@@ -393,6 +397,8 @@
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Port" ColumnName="Port" />
           <ScalarProperty Name="UseSSL" ColumnName="UseSSL" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

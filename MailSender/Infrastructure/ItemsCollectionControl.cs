@@ -25,7 +25,7 @@ namespace MailSender.Infrastructure
     public class ItemsCollectionControl : Control
     {
 
-        #region ItemSource : object - Элементы коллекции
+        #region ItemSource : IEnumerable - Элементы коллекции
         /// <summary>Элементы коллекции</summary>
         public static readonly DependencyProperty ItemSourceProperty =
             DependencyProperty.Register(
@@ -136,7 +136,7 @@ namespace MailSender.Infrastructure
         #endregion
 
         #region SelectedItem : object - Выбранный элемент
-        /// <summary>Команда редактирования объекта</summary>
+        /// <summary>Команда выбора объекта</summary>
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register(
                 nameof(SelectedItem),
@@ -149,14 +149,56 @@ namespace MailSender.Infrastructure
 
         //}
 
-        /// <summary>Команда редактирования объекта</summary>
+        /// <summary>Команда выбора объекта</summary>
         public object SelectedItem
         {
             get => (object)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
         #endregion
+
+        #region Login : String - Логин
+        /// <summary>Элементы коллекции</summary>
+        public static readonly DependencyProperty SelectedItemLoginProperty =
+            DependencyProperty.Register(
+                nameof(Login),
+                typeof(string),
+                typeof(ItemsCollectionControl),
+                new PropertyMetadata(default(string), OnSelectedItemLoginPropertyChanged));
+
+        private static void OnSelectedItemLoginPropertyChanged(DependencyObject D, DependencyPropertyChangedEventArgs E)
+        {
+
+        }
+        public string Login
+        {
+            get => (string)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
+        }
+        #endregion
+
+        #region Password : PasswordBox - Пароль
+        /// <summary>Пароль</summary>
+        public PasswordBox Password
+        {
+            get => (PasswordBox)GetValue(SelectedItemPasswordProperty);
+            set => SetValue(SelectedItemPasswordProperty, value);
+        }
         
+        /// <summary>Пароль</summary>
+        public static readonly DependencyProperty SelectedItemPasswordProperty =
+            DependencyProperty.Register(
+                nameof(Password),
+                typeof(PasswordBox),
+                typeof(ItemsCollectionControl),
+                new PropertyMetadata(default(PasswordBox), OnSelectedItemPasswordPropertyChanged));
+
+        private static void OnSelectedItemPasswordPropertyChanged(DependencyObject D, DependencyPropertyChangedEventArgs E)
+        {
+
+        }
+        #endregion
+
 
         static ItemsCollectionControl()
         {
