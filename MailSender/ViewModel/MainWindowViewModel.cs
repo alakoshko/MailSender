@@ -91,13 +91,7 @@ namespace MailSender.ViewModel
 
         #region Команды
         //#region Recipient
-        //public ICommand GetRecipientsCommand { get; }
-        //public bool GetRecipientsCommandCanExecute() => true;
-        //private void OnGetRecipientsCommandExecuted()
-        //{
-        //    Recipients = _DataAccessService.GetRecipients();
-        //    RaisePropertyChanged(nameof(Recipients));
-        //}
+        
         //#endregion
 
         //#region Servers
@@ -120,7 +114,7 @@ namespace MailSender.ViewModel
         //}
         //#endregion
 
-        #region Команды редактороа писем
+        #region Команды редактора писем
 
         #region Команда удаления
         public ICommand RemoveEmailCommand { get; }
@@ -160,22 +154,73 @@ namespace MailSender.ViewModel
         }
         #endregion
 
-        #endregion
-        //public ICommand UpdateCurrentEmployesDB { get; }
-        //public bool UpdateCurrentEmployesDBCanExecute(EmployesDB employesDB) => employesDB != null;// || _CurrentEmployesDB != null;
-        //private void OnUpdateCurrentEmployesDBExecuted(EmployesDB employesDB)
-        //{
-        //    //if (_DataAccessService.CreateNewEmployesDB(employesDB) != null )
-        //    //    EmployesDBs.Add(employesDB);
-        //    _DataAccessService.UpdateEmployesDB(employesDB);
-        //}
+        #region Команда Сохранения
+        public ICommand UpdateEmailCommand { get; }
+        private async void OnUpdateEmailCommandExecuted(Email email) => await _DataAccessService.UpdateEmailsAsync(email);
+        #endregion 
+        #endregion Команды редактороа писем
 
-        //public ICommand CreateNewEmployesDB { get; }
-        //private void OnCreateNewEmployesDBExecuted(EmployesDB employesDB)
-        //{
-        //    CurrentEmployesDB = new EmployesDB();
-        //    EmployesDBs.Add(CurrentEmployesDB);
-        //}
+        #region Команды Получателей
+
+        #region Получить список
+        public ICommand GetRecipientsCommand { get; }
+        public bool GetRecipientsCommandCanExecute(object arg) => arg is Recipient || arg is IList list && list.Count > 0;
+        private async void OnGetRecipientsCommandExecuted()
+        {
+            //Recipients = _DataAccessService.GetRecipients();
+            
+            Recipients = await _DataAccessService.GetRecipientsAsync();
+            RaisePropertyChanged(nameof(Recipients));
+        }
+        #endregion
+
+        #region Команда удаления
+        public ICommand RemoveRecipientCommand { get; }
+        public bool RemoveRecipientCommandCanExecute(object arg) => arg is Recipient || arg is IList list && list.Count > 0;
+        private async void OnRemoveRecipientCommandExecuted(object obj)
+        {
+            switch (obj)
+            {
+                case Recipient recipient:
+                    if (await _DataAccessService.RemoveRecipientAsync(recipient))
+                        Recipients.Remove(recipient);
+                    break;
+                case IList recipient_list:
+                    //сделали копию списка, преобразовали в массив, чтобы избежать конфликтов между ObservableCollection<Recipient>
+                    foreach (Recipient recipient in recipient_list.OfType<Recipient>().ToArray())
+                        if (await _DataAccessService.RemoveRecipientAsync(recipient))
+                            Recipients.Remove(recipient);
+                    break;
+
+            }
+        }
+        #endregion 
+
+        #region Команда Сохранения
+        public ICommand UpdateRecipientCommand { get; }
+        private async void OnUpdateRecipientCommandExecuted(Recipient recipient) => await _DataAccessService.UpdateRecipientsAsync(recipient);
+        //private void OnUpdateRecipientCommandExecuted(Recipient recipient) => _DataAccessService.UpdateRecipients(recipient);
+        #endregion 
+
+        #region Команда добавления
+        public ICommand AddNewRecipientCommand { get; }
+        private async void OnAddNewRecipientCommandExecuted()
+        {
+            var count = Recipients.Count(r => Regex.IsMatch(r.Name, "Получатель(\\d+)?"));
+            var new_r = new Recipient
+            {
+                Name = count == 0 ? "Получатель" : $"Получатель{count + 1}",
+                Email = count == 0 ? "recipient1" : $"recipient{count + 1}@mail.ru",
+            };
+
+            if (await _DataAccessService.CreateRecipientsAsync(new_r))
+                Recipients.Add(new_r);
+        }
+        #endregion
+
+        
+
+        #endregion Получатели
 
 
 
@@ -197,15 +242,25 @@ namespace MailSender.ViewModel
             _DataAccessService = dataAccessService;
 
 
-            //UpdateDataCommand = new RelayCommand(OnUpdateDataCommandExecuted, UpdateDataCommandCanExecute);
-            //UpdateCurrentRecipient = new RelayCommand<Recipient>(OnUpdateCurrentRecipientExecuted, UpdateCurrentRecipientCanExecute);
-            //CreateRecipient = new RelayCommand<Recipient>(OnCreateRecipientExecuted);
+
+
             //ClickSendMail = new RelayCommand(OnClickSendMailExecuted, ClickSendMailCanExecute);
+            #region Команды БД
+            
+            #endregion
 
             #region Команды редактора писем
             AddNewEmailCommand = new RelayCommand(OnAddNewEmailCommandExecuted);
             RemoveEmailCommand = new RelayCommand<object>(OnRemoveEmailCommandExecuted, RemoveEmailCommandCanExecute);
+            UpdateEmailCommand = new RelayCommand<Email>(OnUpdateEmailCommandExecuted);
             #endregion
+
+            #region Команды редактора получателей
+            AddNewRecipientCommand = new RelayCommand(OnAddNewRecipientCommandExecuted);
+            RemoveRecipientCommand = new RelayCommand<object>(OnRemoveRecipientCommandExecuted, RemoveRecipientCommandCanExecute);
+            UpdateRecipientCommand = new RelayCommand<Recipient>(OnUpdateRecipientCommandExecuted);
+            #endregion
+
 
             InitializeAsync();
         }

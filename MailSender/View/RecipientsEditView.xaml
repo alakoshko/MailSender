@@ -10,10 +10,11 @@
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center" >
             <Button DockPanel.Dock="Bottom" Content="Создать" 
                 Padding="10,5" Margin="5" Height="26"
-                Command="{Binding CreateRecipient}"/>
-            <Button DockPanel.Dock="Bottom" Content="Обновить" 
+                Command="{Binding AddNewRecipientCommand}"/>
+            
+            <Button DockPanel.Dock="Bottom" Content="Сохранить" 
                 Padding="10,5" Margin="5" Height="26"
-                Command="{Binding UpdateCurrentRecipient}" CommandParameter="{Binding CurrentRecipient}"/>
+                Command="{Binding UpdateRecipientCommand}" CommandParameter="{Binding CurrentRecipient}"/>
         </StackPanel>
         <GroupBox Header="Получатель">
             <Grid DataContext="{Binding CurrentRecipient}">

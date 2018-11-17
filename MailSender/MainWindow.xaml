@@ -57,8 +57,8 @@
                         </ToolBar>
                         <ToolBar Band="1" BandIndex="0">
                             <is:ItemsCollectionControl x:Name="cbSmtpServers" VerticalAlignment="Center" HorizontalAlignment="Left" PanelName="SMTP сервера:" 
-                                ItemSource="{Binding Servers}"
-                                SelectedItem="{Binding SelectedServer}"/>
+                                ItemSource="{Binding Servers, UpdateSourceTrigger=PropertyChanged}"
+                                SelectedItem="{Binding SelectedServer, UpdateSourceTrigger=PropertyChanged}"/>
                             <StackPanel Orientation="Horizontal"
                                         DataContext="{Binding SelectedServer}">
                                 <TextBlock DockPanel.Dock="Left" Text="  Логин: " Margin="5,0,0,0" VerticalAlignment="Center"/>
@@ -172,8 +172,9 @@
                     <GroupBox Grid.Column="1" Header="{Binding Id,  StringFormat='Письмо id:({0})'}" DataContext="{Binding SelectedEmail}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="5*"/>
-                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="8*"/>
+                                <RowDefinition Height="3*"/>
+                                <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
                             <GroupBox Grid.Row="0" >
                                 <Grid>
@@ -193,6 +194,11 @@
                             </GroupBox>
                             <GroupBox Grid.Row="1" Header="Комментарий">
                                 <TextBox Text="{Binding Description}"/>
+                            </GroupBox>
+                            <GroupBox Grid.Row="2">
+                                <Button Content="Сохранить" 
+                                        Command="{Binding MainWindow.UpdateEmailCommand, Source={StaticResource Locator}}"
+                                        CommandParameter="{Binding}"/>
                             </GroupBox>
                         </Grid>
                     </GroupBox>

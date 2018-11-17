@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/16/2018 14:57:43
+-- Date Created: 11/16/2018 23:13:56
 -- Generated from EDMX file: D:\Документы\GitHub\MailSender\SpamLib\Data\SpamDB.edmx
 -- --------------------------------------------------
 
@@ -130,7 +130,7 @@ CREATE TABLE [dbo].[Servers] (
     [Port] smallint  NOT NULL,
     [UseSSL] bit  NOT NULL,
     [Login] nvarchar(max)  NOT NULL,
-    [Password] nvarchar(max)  NOT NULL
+    [Password] nvarchar(max)  NULL
 );
 GO
 

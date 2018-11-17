@@ -103,7 +103,7 @@
     <Property Name="Port" Type="smallint" Nullable="false" />
     <Property Name="UseSSL" Type="bit" Nullable="false" />
     <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="MailingListRecepient">
     <Key>
@@ -309,7 +309,7 @@
           <Property Name="UseSSL" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ScheduledTasks" Relationship="Spam.Data.ServerScheduledTask" FromRole="Server" ToRole="ScheduledTask" />
           <Property Name="Login" Type="String" Nullable="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" Unicode="true" />
+          <Property Name="Password" Type="String" Unicode="true" Nullable="true" />
         </EntityType>
         <Association Name="MailingListScheduledTask">
           <End Type="Spam.Data.MailingList" Role="MailingList" Multiplicity="0..1" >
